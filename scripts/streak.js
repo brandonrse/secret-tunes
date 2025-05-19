@@ -145,6 +145,7 @@ async function loadLocalCsv() {
   const file = await response.text();
   if (file) {
       songsCsv = parseCSV(file); 
+      console.log('songs', songsCsv);
       songsData = structuredClone(songsCsv); 
       setupSongs(songsCsv); 
       setupDataList(songsCsv);
