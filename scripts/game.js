@@ -58,7 +58,7 @@ document.getElementById('songsCsv').addEventListener('change', function(event) {
 
 loadLocalCsv();
 async function loadLocalCsv() {
-  const response = await fetch('../Songs Spreadsheet - Songs.csv');
+  const response = await fetch('./Songs Spreadsheet - Songs.csv');
   const file = await response.text();
   if (file) {
       songsCsv = parseCSV(file); 
