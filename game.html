@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VGM Quiz</title>
+  <link rel="stylesheet" href="styles.css"/>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">VGM Quiz</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarText">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="/index.html">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/game.html">Jeopardy Mode <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/streak.html">Streak Mode</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <div class="container-sm settings">
+    <input type="file" id="songsCsv" accept=".csv" />
+    <pre id="output"></pre>
+
+    <!-- For some reason, while this is no longer used commenting this code out breaks the categories?? -->
+    <label for="series-select">Series</label>
+    <select class="form-select" id="series-select">
+      <option value="All">All</option>
+    </select>
+    <br />
+
+    <label class="form-label" for="playerCount">Player Count</label>
+    <input type="number" id="playerCount" class="form-control" min="0" max="8" value="0" />
+    <div class="players-select-container" id="players-select-div">
+    </div>
+    
+    <br />
+    
+    <div class="select-cat-container" id="select-cat-div">
+      <label for="cat1">Category 1</label>
+      <select class="form-select" id="cat1"></select>
+      <!-- <button id="btn-cat1" class="btn btn-success">Change</button> -->
+      <br />
+      <label for="cat2">Category 2</label>
+      <select class="form-select" id="cat2"></select>
+      <!-- <button id="btn-cat2" class="btn btn-success">Change</button> -->
+      <br />
+      <label for="cat3">Category 3</label>
+      <select class="form-select" id="cat3"></select>
+      <!-- <button id="btn-cat3" class="btn btn-success">Change</button> -->
+      <br />
+      <label for="cat4">Category 4</label>
+      <select class="form-select" id="cat4"></select>
+      <!-- <button id="btn-cat4" class="btn btn-success">Change</button> -->
+      <br />
+      <label for="cat5">Category 5</label>
+      <select class="form-select" id="cat5"></select>
+      <!-- <button id="btn-cat5" class="btn btn-success">Change</button> -->
+      <br />
+      
+    </div>
+    <div class="form-check form-switch">
+      <input class="form-check-input" type="checkbox" role="switch" id="rerollAny">
+      <label class="form-check-label" for="rerollAny">Reroll any song?</label>
+    </div>
+    <div class="series-check-container" id="series-check-div">
+      <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" role="switch" id="switchCheckAll" checked>
+        <label class="form-check-label" for="switchCheckAll">All</label>
+      </div>
+    </div>
+  </div>
+  
+  <button type="button" id="reset-btn" class="btn btn-danger">Reset All Buttons</button>
+  <div class="container game-container">
+    <div class="categories row">
+      <div class="col-2 category-title">Category 1</div>
+      <div class="col-2 category-title">Category 2</div>
+      <div class="col-2 category-title">Category 3</div>
+      <div class="col-2 category-title">Category 4</div>
+      <div class="col-2 category-title">Category 5</div>
+    </div>
+    <div class="all-song-buttons">
+      <div class="songs row mt-5">
+        <div class="col-2 song easy"><button type="button" class="btn btn-easy btn-cat1">Easy</button></div>
+        <div class="col-2 song easy"><button type="button" class="btn btn-easy btn-cat2">Easy</button></div>
+        <div class="col-2 song easy"><button type="button" class="btn btn-easy btn-cat3">Easy</button></div>
+        <div class="col-2 song easy"><button type="button" class="btn btn-easy btn-cat4">Easy</button></div>
+        <div class="col-2 song easy"><button type="button" class="btn btn-easy btn-cat5">Easy</button></div>
+      </div>
+      <div class="songs row mt-5">
+        <div class="col-2 song normal"><button type="button" class="btn btn-normal btn-cat1">Normal</button></div>
+        <div class="col-2 song normal"><button type="button" class="btn btn-normal btn-cat2">Normal</button></div>
+        <div class="col-2 song normal"><button type="button" class="btn btn-normal btn-cat3">Normal</button></div>
+        <div class="col-2 song normal"><button type="button" class="btn btn-normal btn-cat4">Normal</button></div>
+        <div class="col-2 song normal"><button type="button" class="btn btn-normal btn-cat5">Normal</button></div>
+      </div>
+  
+      <div class="songs row mt-5">
+        <div class="col-2 song tough"><button type="button" class="btn btn-tough btn-cat1">Tough</button></div>
+        <div class="col-2 song tough"><button type="button" class="btn btn-tough btn-cat2">Tough</button></div>
+        <div class="col-2 song tough"><button type="button" class="btn btn-tough btn-cat3">Tough</button></div>
+        <div class="col-2 song tough"><button type="button" class="btn btn-tough btn-cat4">Tough</button></div>
+        <div class="col-2 song tough"><button type="button" class="btn btn-tough btn-cat5">Tough</button></div>
+      </div>
+  
+      <div class="songs row mt-5">
+        <div class="col-2 song lunatic"><button type="button" class="btn btn-lunatic btn-cat1">Lunatic</button></div>
+        <div class="col-2 song lunatic"><button type="button" class="btn btn-lunatic btn-cat2">Lunatic</button></div>
+        <div class="col-2 song lunatic"><button type="button" class="btn btn-lunatic btn-cat3">Lunatic</button></div>
+        <div class="col-2 song lunatic"><button type="button" class="btn btn-lunatic btn-cat4">Lunatic</button></div>
+        <div class="col-2 song lunatic"><button type="button" class="btn btn-lunatic btn-cat5">Lunatic</button></div>
+      </div>
+  
+      <div class="songs row mt-5">
+        <div class="col-2 song merciless"><button type="button" class="btn btn-merciless btn-cat1">Merciless</button></div>
+        <div class="col-2 song merciless"><button type="button" class="btn btn-merciless btn-cat2">Merciless</button></div>
+        <div class="col-2 song merciless"><button type="button" class="btn btn-merciless btn-cat3">Merciless</button></div>
+        <div class="col-2 song merciless"><button type="button" class="btn btn-merciless btn-cat4">Merciless</button></div>
+        <div class="col-2 song merciless"><button type="button" class="btn btn-merciless btn-cat5">Merciless</button></div>
+      </div>
+    </div>
+    
+  </div>
+  <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+  <div class="container">
+    <!-- <div id="questionScreen" class="container question-container d-none"> -->
+    <div id="questionScreen" class="container question-container">
+      <div id="category-difficulty"></div>
+      <div id="song-title">
+        <p id="span-name">???</span>
+        <p id="span-game"></span>
+      </div>
+      <div id="hint-div" class="d-none">
+        This is a test hint
+      </div>
+      <div id=player-gif>
+        <div id="players-div">
+          <div class="contestant">
+          </div>
+        </div>
+        <!-- <div id="gif-div">
+          <img src="./fridaynight.gif" style="width: 500px;">
+        </div> -->
+      </div>
+      <div id="player"></div>
+      <div id="custom-controls">
+        <div class="circle">
+          <span id="play" class="material-icons">play_circle</span>
+        </div>
+        <div class="circle">
+          <span id="pause" class="material-icons">pause_circle</button>
+        </div>
+        <!-- <label for="volume-slider">Volume:</label> -->
+        <input type="range" id="volume-slider" min="0" max="100" value="20">
+      </div>
+      
+      <div class="game-buttons">
+        <button id="reveal-hint" class="btn btn-warning">Reveal Hint</button>
+        <button id="reroll" class="btn btn-primary">Reroll Song</button>
+        <button id="revealSong" class="btn btn-success">Reveal Song</button>
+        <button id="backToBoard" class="btn btn-dark">Back to Board</button>
+      </div>
+    </div>
+  </div>
+  <br /><br />
+
+  <script src="/scripts/game.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>

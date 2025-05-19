@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VGM Quiz</title>
+  <link rel="stylesheet" href="styles.css"/>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">VGM Quiz</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarText">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="/index.html">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/game.html">Jeopardy Mode</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/streak.html">Streak Mode <span class="sr-only">(current)</span></a>
+        </li>
+      </ul>
+    </div>
+  </nav>    
+  <div class="container-sm input-container">
+    <label for="songsCsv">Load songs CSV:</label><br />
+    <input type="file" id="songsCsv" accept=".csv" />
+    <pre id="output"></pre>
+  </div>
+  <div class="container song-container">
+    <h2 class="high-score">High Score: 0</h2>
+    <h2 class="score">Score: 0</h2>
+    <h1 class="result text-center"></h1>
+    <h1 class="song-title text-center">???</h1>
+    <h2 class="song-game text-center">?????</h1>
+    <div id="player"></div>
+    <div id="custom-controls">
+      <div class="circle">
+        <span id="play" class="material-icons">play_circle</span>
+      </div>
+      <div class="circle">
+        <span id="pause" class="material-icons">pause_circle</button>
+      </div>
+      <!-- <label for="volume-slider">Volume:</label> -->
+      <input type="range" id="volume-slider" min="0" max="100" value="20">
+    </div>
+    <div class="form streak-form">
+      <input class="form-control" list="songDataListOptions" id="songDataList" placeholder="Type to search a song...">
+      <datalist id="songDataListOptions">
+      </datalist>
+      <button class="btn btn-success streak-btn" type="button">Submit</button>
+    </div>
+    <div id="timer" class="text-center"></div>
+  </div>
+
+  <script src="./scripts/playerUtility.js" type="module" crossorigin="anonymous"></script>
+  <script src="./scripts/streak.js" type="module" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>

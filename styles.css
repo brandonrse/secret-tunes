@@ -1,0 +1,356 @@
+body {
+  background-color: rgb(37, 37, 37)!important;
+  color: white!important;
+  background-color: #2b4162;
+  background-image: linear-gradient(315deg, #2b4162 0%, #12100e 74%);
+
+}
+
+
+.game-container {
+  margin-top: 10px; 
+  background: rgb(52,52,173);
+  background: linear-gradient(90deg, rgba(52,52,173,1) 1%, rgba(32,35,149,1) 52%, rgba(16,27,212,1) 100%); 
+  /* height: 600px; */
+  height: 100vh;
+  border: 10px gold solid;
+  border-radius: 10px;
+}
+
+.categories {
+  display: flex;
+  margin: auto;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+.categories {
+  text-align: center;
+  color: white;
+  font-size: 38px;
+  font-weight: bold;
+  background-color: darkblue;
+  /* height: 85px; */
+}
+
+.category-title {
+  margin: 0 20px 0 20px;
+}
+
+.songs {
+  text-align: center;
+  font-size: x-large;
+  /* height: 45px; */
+  height: 115px;
+}
+
+.song {
+  margin: 0 20px 0 20px;
+}
+
+div.songs > div > button {
+  /* height: 60px; */
+  height: 105px;
+  padding-top: 0;
+  width: 200px;
+  /* font-size: xx-large!important; */
+  font-size: 40px!important;
+  color:white!important;
+  border-radius: 0px!important;
+  border: 5px white solid;
+}
+
+.btn-easy {
+  /* background-color: rgb(69, 177, 69)!important; */
+  /*
+  * Created with https://www.css-gradient.com
+  * Gradient link: https://www.css-gradient.com/?c1=347c0c&c2=60f483&gt=l&gd=dtl
+  */
+  background: #347C0C;
+  background: linear-gradient(135deg, #347C0C, #60F483);
+}
+
+.btn-easy:hover {
+  background-color: rgb(61, 157, 61)!important;
+}
+ 
+.btn-normal {
+  /* background-color: rgb(79, 70, 250)!important; */
+  /*
+  * Created with https://www.css-gradient.com
+  * Gradient link: https://www.css-gradient.com/?c1=3471e2&c2=2600af&gt=l&gd=dtl
+  */
+  background: #3471E2;
+  background: linear-gradient(135deg, #3471E2, #2600AF);
+}
+
+.btn-normal:hover {
+  background-color: rgb(60, 57, 116)!important;
+}
+
+.btn-tough {
+  /* background-color: rgb(205, 127, 19)!important; */
+  /*
+  * Created with https://www.css-gradient.com
+  * Gradient link: https://www.css-gradient.com/?c1=e59651&c2=f77c2a&gt=l&gd=dtl
+  */
+  background: #E59651;
+  background: linear-gradient(135deg, #E59651, #F77C2A);
+}
+
+.btn-tough:hover {
+  background-color: rgb(181, 113, 18)!important;
+}
+
+.btn-lunatic {
+  /* background-color: rgb(159, 17, 12)!important; */
+  /*
+  * Created with https://www.css-gradient.com
+  * Gradient link: https://www.css-gradient.com/?c1=cc4f45&c2=d31b35&gt=l&gd=dtl
+  */
+  background: #CC4F45;
+  background: linear-gradient(135deg, #CC4F45, #D31B35);
+}
+
+.btn-lunatic:hover {
+  background-color: rgb(97, 10, 7)!important;
+}
+
+.btn-merciless {
+  /* background-color: rgb(192, 26, 195)!important; */
+  /*
+  * Created with https://www.css-gradient.com
+  * Gradient link: https://www.css-gradient.com/?c1=f737ca&c2=ad06db&gt=l&gd=dtl
+  */
+  background: #F737CA;
+  background: linear-gradient(135deg, #F737CA, #AD06DB);
+}
+
+.btn-merciless:hover {
+  background-color: rgb(113, 14, 114)!important;
+}
+.question-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Ensures space between top and bottom elements */
+  align-items: center;
+  margin-top: 10px;
+  padding: 20px;
+  /* background-color: rgb(30, 30, 30); */
+  background-color: rgb(87, 4, 58);
+  color: white;
+  text-align: center;
+  /* height: 600px;  */
+  height: 100vh; 
+  border: 10px solid gold;
+  border-radius: 10px;
+  position: relative;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-blend-mode: multiply; 
+  background-image: url("./fridaynight.gif");
+  /* background-image: url("./starry.gif"); */
+  transition: background-color 2s ease-in-out;
+
+}
+
+.select-cat-container, .players-select-container {
+  width: 200px;
+}
+
+#playerCount {
+  width: 200px;
+}
+
+#reset-btn {
+  display: block;
+  margin: auto;
+}
+
+#player {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: auto; /* Ensure it stays centered with flex alignment */
+}
+
+#custom-controls {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin: auto;
+  background: rgba(0,0,0,0.4);
+  border-radius: 40px;
+  width: fit-content;
+  padding: 10px 20px;
+}
+
+.game-buttons {
+  align-self: center; /* Center the button horizontally */
+  margin-top: auto;
+  margin-bottom: 10px; /* Add some spacing from the bottom */
+}
+
+.all-song-buttons {
+  height: 90%;
+}
+
+#category-difficulty {
+  margin: 0 auto auto 0;
+  background-color: #2b4162;
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  height: 73px;
+  /* align-content: center; */
+  padding: 0px 10px 0px 10px;
+  border: 2px solid white;
+  border-radius: 20px;
+  width: fit-content;
+  font-size: 40px;
+}
+
+#backToBoard {
+  border-color: gold;
+}
+
+#span-name {
+  font-weight: bold;
+  font-size: 75px;
+}
+
+#span-game {
+  font-size: 75px;
+  font-style: italic;
+  border-top: azure 2px dotted;
+  border-bottom: azure 2px dotted;
+}
+
+#players-div {
+  position: absolute;
+  left:20px;
+  top:100%;
+  /* transform: translateY(-50%); */
+}
+
+#player-gif {
+  position: relative;
+  width: 100%;
+}
+
+.contestant {
+  margin-bottom: 15px;
+}
+
+.contestant p {
+  font-size: 30px;
+  margin: 0;
+  text-align: left;
+}
+
+.contestant .score {
+  font-size: 26px;
+}
+
+.contestant #playerScore {
+  background: none;
+  color: white;
+  text-align: center;
+  font-size: 1.5rem;
+  width: 100px;
+}
+
+#gif-div {
+  margin-top: 50px;
+}
+
+div.circle {
+  height: 60px;
+  width: 60px;
+  border-radius: 50%;
+  background-color: rgb(67, 67, 67);
+  display: grid;
+  place-content: center;
+  /* animation: grow 1s infinite; */
+}
+
+div.circle > span {
+  color: #eee;
+  font-size: 50px;
+}
+
+#play:hover {
+  cursor: pointer;
+}
+
+#pause:hover {
+  cursor: pointer;
+}
+
+#series-select {
+  width: 200px;
+}
+
+#hint-div {
+  font-size: 40px;
+  background-color: darkslategray;
+  width: 500px;
+  /* height: 100px; */
+  text-align: center;
+  align-content: center;
+  border-radius: 60px;
+}
+
+
+@keyframes grow {
+  from {
+    box-shadow: 0px 0px 1em #000;
+  }
+  to {
+    box-shadow: 0px 0px 3em #000;
+  }
+}
+
+
+#songDataList {
+  max-width: 400px;
+  margin: 20px auto;
+}
+
+.song-container {
+  padding: 50px;  
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-blend-mode: multiply; 
+  /* background-image: url("./fridaynight.gif"); */
+  background-image: url("./starry.gif");
+  transition: background-color 2s ease-in-out;
+  height: 100vh;
+}
+
+.streak-form {
+  text-align: center;
+}
+
+.high-score {
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+.song-title, .song-game{
+  transition: 2s ease-in-out;
+}
+
+#timer {
+  font-size: xx-large;
+  background-color: rgba(255,255,255,0.2);
+  border-radius: 45px;
+  border: solid;
+  color: wheat;
+  margin: 20px auto;
+  padding: 10px;
+  width: 105px;
+  display: none;
+}
