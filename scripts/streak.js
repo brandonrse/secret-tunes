@@ -238,6 +238,7 @@ function streakFormSubmit(event) {
     randomSongName = getSongName(randomSong.title)
   }
   if (randomSongName === songInputValue) {
+    streakBtn.disabled = true;
     console.log('Correct! Choosing next song...');
     resultText.innerHTML = '✔️';
     songInput.innerHTML = '';
@@ -257,6 +258,7 @@ function streakFormSubmit(event) {
       resultText.textContent = '';
       timerElement.textContent = '';
       loadRandomSong(songsCsv);
+      streakBtn.disabled = false;
       timerElement.style.display = 'none';
     });
     
