@@ -18,6 +18,7 @@ let randomSong;
 let score = 0;
 var playedSongs = new Set();
 let gameOver = false;
+let unplayedSongs = [];
 
 const songsDataList = document.getElementById('songDataListOptions');
 const container = document.querySelector('.song-container');
@@ -200,14 +201,7 @@ function setupDataList(songs) {
 
 async function loadRandomSong(songs) {
   const unplayedSongs = getUnplayedSongs(songs, playedSongs);
-  if (randomSong !== undefined) {
-    do {
-      randomSong = getRandomSong(songs);
-    }
-    while (!isSongInArrayByTitle(unplayedSongs, randomSong.title));
-  } else {
-    randomSong = getRandomSong(songs);
-  }
+  randomSong = getRandomSong(unplayedSongs);
   // console.log('random song:', randomSong);
   const youtubeId = getYoutubeID(randomSong.youtube);
   await playerReadyPromise;
