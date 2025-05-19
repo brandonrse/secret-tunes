@@ -133,9 +133,9 @@ document.getElementById('reroll').addEventListener('click', () => {
   document.getElementById('span-game').textContent = '';
   document.getElementById('span-name').textContent = '???';
   player.loadVideoById(youtubeId);
-  console.log("REROLLED SONG", chosenSong);
+  // console.log("REROLLED SONG", chosenSong);
   // window.alert('Title: ' + chosenSong.title + '\nDifficulty: ' + chosenSong.difficulty + '\nSeries: ' + chosenSong.series + '\nCategories: ' + chosenSong.categories);
-  console.log('Title: ' + chosenSong.title + '\nDifficulty: ' + chosenSong.difficulty + '\nSeries: ' + chosenSong.series + '\nCategories: ' + chosenSong.categories);
+  // console.log('Title: ' + chosenSong.title + '\nDifficulty: ' + chosenSong.difficulty + '\nSeries: ' + chosenSong.series + '\nCategories: ' + chosenSong.categories);
 });
 
 document.getElementById('rerollAny').addEventListener('change', (e) => { 
@@ -221,7 +221,7 @@ document.head.appendChild(tag);
 // NO LONGER USING
 document.getElementById('series-select').addEventListener('change' , () => {
   let seriesValue = document.getElementById('series-select').value;
-  console.log('seriesvalue', seriesValue);
+  // console.log('seriesvalue', seriesValue);
   if (seriesValue == 'All') {
     songsData = structuredClone(songsCsv);
   }
@@ -462,15 +462,15 @@ function setupSelectChecks(songSeries) {
 }
 
 function filterSongsByChosenSeries() {
-  console.log(chosenSeries);
+  // console.log(chosenSeries);
   songsData = songsCsv.filter(s => s.series.every(series => chosenSeries.includes(series)));
-  console.log(songsData);
+  // console.log(songsData);
 }
 
 // NO LONGER USED
 document.getElementById('series-select').addEventListener('change' , () => {
   let seriesValue = document.getElementById('series-select').value;
-  console.log('seriesvalue', seriesValue);
+  // console.log('seriesvalue', seriesValue);
   if (seriesValue == 'All') {
     songsData = structuredClone(songsCsv);
   }
@@ -496,8 +496,8 @@ function setChosenSong() {
   document.getElementById('category-difficulty').textContent = chosenCategory + ': ' + chosenDifficulty;
   let songsByDifficulty = filterSongsByDifficulty(songsData, chosenDifficulty);
   songsByCategory = filterSongsByCategory(songsByDifficulty, chosenCategory);
-  console.log(songsByDifficulty);
-  console.log(songsByCategory);
+  // console.log(songsByDifficulty);
+  // console.log(songsByCategory);
 
   if (songsByCategory.length <= 0 || videoUnavailable) {
     console.log('Video is unavailable or there is no song that meets the criteria of: ' + chosenCategory + ': ' + chosenDifficulty);
@@ -517,12 +517,12 @@ function setChosenSong() {
   }
   videoUnavailable = false;
   let youtubeId = getYoutubeID(chosenSong.youtube);
-  console.log(chosenSong, youtubeId);
+  // console.log(chosenSong, youtubeId);
   player.setVolume(10);
   // player.playerVars.playlist = youtubeId;
   player.loadPlaylist(youtubeId);
   player.loadVideoById(youtubeId);
   questionScreen.scrollIntoView({behavior: "smooth"});
   // window.alert('Title: ' + chosenSong.title + '\nDifficulty: ' + chosenSong.difficulty + '\nSeries: ' + chosenSong.series + '\nCategories: ' + chosenSong.categories);
-  console.log('Title: ' + chosenSong.title + '\nDifficulty: ' + chosenSong.difficulty + '\nSeries: ' + chosenSong.series + '\nCategories: ' + chosenSong.categories);
+  // console.log('Title: ' + chosenSong.title + '\nDifficulty: ' + chosenSong.difficulty + '\nSeries: ' + chosenSong.series + '\nCategories: ' + chosenSong.categories);
 }

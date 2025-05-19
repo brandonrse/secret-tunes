@@ -125,7 +125,7 @@ streakBtn.addEventListener('click', streakFormSubmit);
 // Reads the inputted csv file
 document.getElementById('songsCsv').addEventListener('change', async function(event) {
   // const file = event.target.files[0];
-  const file = await fetch('../Songs Spreadsheet - Songs.csv');
+  const file = await fetch('./Songs Spreadsheet - Songs.csv');
 
   if (file) {
       const reader = new FileReader();
@@ -289,5 +289,6 @@ function restart() {
   songGameText.innerHTML = '?????';
   resultText.textContent = '';
   streakBtn.textContent = 'Submit';
+  document.getElementById('songDataList').value = '';
   loadRandomSong(songsCsv);
 }
