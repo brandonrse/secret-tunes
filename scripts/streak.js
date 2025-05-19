@@ -207,7 +207,7 @@ async function loadRandomSong(songs) {
   } else {
     randomSong = getRandomSong(songs);
   }
-  console.log('random song:', randomSong);
+  // console.log('random song:', randomSong);
   const youtubeId = getYoutubeID(randomSong.youtube);
   await playerReadyPromise;
   player.setVolume(10);
