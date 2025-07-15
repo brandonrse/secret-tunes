@@ -16,7 +16,7 @@ var songSeries = [];
 let player; // The youtube video player
 let randomSong;
 let score = 0;
-var playedSongs = new Set();
+var playedSongs = [];
 let gameOver = false;
 let unplayedSongs = [];
 
@@ -108,7 +108,7 @@ document.head.appendChild(tag);
 // If video gives an error, generate a random one
 function onPlayerError(event) {
   const errorCode = event.data;
-  playedSongs.add(randomSong.title);
+  playedSongs.push(randomSong.title);
   console.log('Error loading video: ' + errorCode);  
   console.log('Loading new random song...');
   loadRandomSong(songsCsv);
@@ -216,7 +216,7 @@ function streakFormSubmit(event) {
     gameOver = false;
     return;
   }
-  if (playedSongs.size === songsCsv.length) {
+  if (playedSongs.length === songsCsv.length) {
     resultText.textContent = 'Congratulations! You\'ve guessed every available song!';
     gameOver = true;
     streakBtn.textContent = 'Restart'
@@ -244,7 +244,7 @@ function streakFormSubmit(event) {
       highScoreText.innerHTML = 'High Score: ' + score;
       localStorage.setItem('highScore', score);
     }
-    playedSongs.add(randomSong.title);
+    playedSongs.push(randomSong.title);
     timerElement.style.display = 'block';
     
     startCountdown(5, timerElement, () => {
@@ -276,7 +276,7 @@ function getHighScore() {
 }
 
 function restart() {
-  playedSongs.clear();
+  playedSongs = [];
   score = 0;
   scoreText.textContent = 'Score: ' + score;
   songTitleText.innerHTML = '???';

@@ -1,0 +1,214 @@
+.adventure-container {
+  margin-top: 10px;
+  padding-bottom: 10px;
+  font-family: 'Press Start 2P', monospace;
+  font-size: small;
+}
+
+.adventure-box {
+  border: 2px white solid;
+  border-radius: 3px;
+  background-color: #0d0d0d;
+}
+
+.adventure-background {
+  max-width: 720px;
+  min-height: 480px;
+  margin: 10px auto;
+  /* background-image: url('./assets/images/adventure/backgrounds/Forest_LostWoodsTotK.png'); */
+  background-size: cover;
+  background-repeat: no-repeat;
+  text-align: center;
+}
+
+.adventure-character {
+  max-width: 720px;
+  height: 480px;
+  animation: bob 1s ease-in-out infinite;
+}
+
+.adventure-text-box {
+  margin-top: 10px;
+  padding: 10px;
+  /* animation: shake 31s ease-in-out infinite; */
+}
+
+.next-text-btn {
+  background: none;
+  padding: 0!important;
+  float: right;
+  animation: bob 1s ease-in-out infinite;
+}
+
+.adventure-options {
+  display: flex;
+  justify-content: center;
+  height: 480px;
+}
+/* 
+.adventure-options:active {
+  animation: slideRight 1.5s ease-in-out forwards;
+} */
+
+.option-easy {
+  color: rgb(124, 255, 124);
+}
+.option-normal {
+  color: rgb(124, 220, 255);
+}
+.option-tough {
+  color: rgb(238, 255, 124);
+}
+.option-lunatic {
+  color: rgb(255, 124, 124);
+}
+.option-merciless {
+  color: rgb(209, 124, 255);
+}
+
+.adventure-option {
+  width: 100%;
+  margin: auto 10px;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  transition: transform 0.5s ease, opacity 0.5s ease;
+}
+
+.adventure-option:hover {
+  transform: scale(1.1);
+  transition: 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+.category-label {
+  text-align: right;
+}
+
+.category-label p {
+  margin: 0;
+}
+
+.level-label {
+  text-align: left;
+}
+
+.stat-labels {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px;
+  position: relative;
+}
+
+
+
+@keyframes bob {
+	0% {
+		transform: translatey(0px);
+	}
+	50% {
+		transform: translatey(-1px);
+	}
+	100% {
+		transform: translatey(0px);
+	}
+}
+
+@keyframes shake {
+  0% { transform: translate(1px, 1px) rotate(0deg); }
+  10% { transform: translate(-1px, -2px) rotate(-1deg); }
+  20% { transform: translate(-3px, 0px) rotate(1deg); }
+  30% { transform: translate(3px, 2px) rotate(0deg); }
+  40% { transform: translate(1px, -1px) rotate(1deg); }
+  50% { transform: translate(-1px, 2px) rotate(-1deg); }
+  60% { transform: translate(-3px, 1px) rotate(0deg); }
+  70% { transform: translate(3px, 1px) rotate(-1deg); }
+  80% { transform: translate(-1px, -1px) rotate(1deg); }
+  90% { transform: translate(1px, 2px) rotate(0deg); }
+  100% { transform: translate(1px, -2px) rotate(-1deg); }
+}
+
+@keyframes fadeOut {
+   0% {opacity: 1;}
+   100% {
+    opacity: 0;
+    display: none;
+  } 
+} 
+
+@keyframes fadeIn {
+   0% {
+    opacity: 0;
+    display: none;
+  }
+   100% {
+    opacity: 0;
+    display: contents;
+  } 
+} 
+
+.slide-right {
+  transform: translateX(100vw);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.defeated {
+  filter: grayscale();
+}
+
+#songDataList {
+  /* font-size: x-small; */
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.sticker-container {
+  margin-top: 10px;
+  display: flex;
+  gap: 10px;
+  padding: 10px;
+  flex-wrap: wrap;
+}
+
+.sticker-img {
+  height: 70px;
+}
+
+.macguffin-container {
+  margin-top: 10px;
+  display: flex;
+  gap: 10px;
+  padding: 10px;
+  flex-wrap: wrap;
+}
+
+.macguffin-img { 
+  height: 70px;
+}
+
+.song-title {
+  color: #afa4ff;
+  transition: none!important;
+}
+
+.game-title {
+  color: #55ff60;
+}
+
+.character-name {
+  color: #ff5a5a;
+}
+
+.macguffin-title {
+  color: gold
+}
+
+.mcguffin-container {
+  margin-top: 10px;
+  display: flex;
+  gap: 10px;
+  padding: 10px;
+  flex-wrap: wrap;
+}

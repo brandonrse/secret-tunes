@@ -1,9 +1,8 @@
 export function getYoutubeID(url) {
-  const urlObj = new URL(url);
-  if (url.startsWith('https://youtu.be')) {
-    return url.split('/')[3];
-  }
-  return urlObj.searchParams.get('v');
+  const match = url.match(
+    /(?:youtube\.com.*(?:\?|&)v=|youtu\.be\/)([^&?/]+)/i
+  );
+  return match ? match[1] : null;
 }
 
 
@@ -26,7 +25,7 @@ export function getRandomSong(songs) {
 }
 
 export function getUnplayedSongs(songs, playedSongsTitles) {
-  return songs.filter((s) => !playedSongsTitles.has(s.title));
+  return songs.filter((s) => !playedSongsTitles.includes(s.title));
 }
 
 export function isSongInArrayByTitle(songs, title) {
@@ -39,3 +38,43 @@ export function hasDuplicateSongName(songs, name) {
   }, 0);
   return count > 1;
 }
+
+export function songHasCategory(song, category) {
+  return song.categories.includes(category);
+}
+
+export function getSongsByDifficulty(songs, difficulty) {
+  return songs.filter((s) => s.difficulty === difficulty);
+}
+
+export function getSongsByCategory(songs, category) {
+  return songs.filter((s) => s.categories.includes(category));
+}
+
+export function getSongsBySeries(songs, series) {
+  return songs.filter((s) => s.series.includes(series));
+}
+
+export function getSongsWithoutCategory(songs, category) {
+  return songs.filter((s) => !s.categories.includes(category));
+}
+
+export function getSongsWithoutDifficulty(songs, difficulty) {
+  return songs.filter((s) => s.difficulty !== difficulty);
+}
+
+//#region ADVENTURE CHARACTERS
+
+export function getCharactersByDifficulty(characters, difficulty) {
+  return characters.filter((c) => c.difficulty === difficulty);
+}
+
+export function getCharactersBySeries(characters, series) {
+  return characters.filter((c) => c.series.includes(series));
+}
+
+export function getCharactersByCategories(characters, category) {
+  return characters.filter((c) => c.categories.includes(category));
+}
+
+//#endregion

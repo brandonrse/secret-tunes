@@ -118,6 +118,7 @@ document.getElementById('reroll').addEventListener('click', () => {
   } else {
     chosenSong = getRandomSong(songsByCategory);
   }
+  console.log('chosen rerolled song', chosenSong);
   resetHintButtons();
 
   if (chosenSong.hints == null) {
@@ -221,7 +222,6 @@ document.head.appendChild(tag);
 // NO LONGER USING
 document.getElementById('series-select').addEventListener('change' , () => {
   let seriesValue = document.getElementById('series-select').value;
-  // console.log('seriesvalue', seriesValue);
   if (seriesValue == 'All') {
     songsData = structuredClone(songsCsv);
   }
@@ -231,26 +231,18 @@ document.getElementById('series-select').addEventListener('change' , () => {
   setupSongs(songsData);
 });
 
-document.getElementById('switchCheckAll').addEventListener('change', () => {
-  let seriesCheckAll = document.getElementById('switchCheckAll');
-  let allChecks = document.querySelectorAll('.form-check-input');
-  
+document.getElementById('switchCheckAll').addEventListener('change', (e) => {
+  let seriesCheckAll = e.target;
+  let allChecks = document.querySelectorAll('.series-input');
   if (!seriesCheckAll.checked) {
     allChecks.forEach(c => {
-      c.disabled = false;
-      c.checked = true;
+      c.checked = false;
     });
-    
-    allChecks[1].checked = false;
   } else {
     allChecks.forEach(c => {
-      c.disabled = true;
       c.checked = true;
     });
     songsData = structuredClone(songsCsv);
-    
-    allChecks[1].checked = true;
-    allChecks[1].disabled = false;
   }
 });
 
@@ -385,6 +377,10 @@ function filterSongsByCategory(songs, category) {
   return songs.filter(a => a.categories.includes(category));
 }
 
+function filterSongsBySeries(songs, series) {
+  return songs.filter(a => a.series.includes(series));
+}
+
 function getYoutubeID(url) {
   const urlObj = new URL(url);
   if (url.startsWith('https://youtu.be')) {
@@ -402,20 +398,26 @@ function setupSongs(songs) {
 function setupSelects(songCategories, songSeries) {
   let selectDiv = document.getElementById('select-cat-div');
   let selectCats = selectDiv.querySelectorAll('select');
+  
+  let mergedCategoriesAndSeries = [...songCategories, ...songSeries].sort();
 
+  let shuffled = [...mergedCategoriesAndSeries].sort(() => Math.random() - 0.5);
+  let shuffledFive = shuffled.splice(0, 5);
+  
   selectCats.forEach(s => {
-    songCategories.forEach(c => {
+    mergedCategoriesAndSeries.forEach(c => {
       let option = document.createElement('option');
       option.value = c;
       option.innerHTML = c;
       s.appendChild(option)
     });
   });
-  categories[0].innerHTML = songCategories[0];
-  categories[1].innerHTML = songCategories[1];
-  categories[2].innerHTML = songCategories[2];
-  categories[3].innerHTML = songCategories[3];
-  categories[4].innerHTML = songCategories[4];
+
+  categories[0].innerHTML = shuffledFive[0];
+  categories[1].innerHTML = shuffledFive[1];
+  categories[2].innerHTML = shuffledFive[2];
+  categories[3].innerHTML = shuffledFive[3];
+  categories[4].innerHTML = shuffledFive[4];
 
   // let selectSeries = document.getElementById('series-select');
   // songSeries.forEach(s => {
@@ -432,12 +434,12 @@ function setupSelectChecks(songSeries) {
     let checkDiv = document.createElement('div');
     checkDiv.className = 'form-check form-switch';
     let checkInput = document.createElement('input');
-    checkInput.className = 'form-check-input';
+    checkInput.className = 'form-check-input series-input';
     checkInput.type = 'checkbox';
     checkInput.role = 'switch';
     checkInput.id = 'switchCheckSeries';
     checkInput.checked = true;
-    checkInput.disabled = true;
+    // checkInput.disabled = true;
     let checkLabel = document.createElement('label');
     checkLabel.className = 'form-check-label';
     checkLabel.textContent = s;
@@ -462,15 +464,12 @@ function setupSelectChecks(songSeries) {
 }
 
 function filterSongsByChosenSeries() {
-  // console.log(chosenSeries);
   songsData = songsCsv.filter(s => s.series.every(series => chosenSeries.includes(series)));
-  // console.log(songsData);
 }
 
 // NO LONGER USED
 document.getElementById('series-select').addEventListener('change' , () => {
   let seriesValue = document.getElementById('series-select').value;
-  // console.log('seriesvalue', seriesValue);
   if (seriesValue == 'All') {
     songsData = structuredClone(songsCsv);
   }
@@ -496,6 +495,10 @@ function setChosenSong() {
   document.getElementById('category-difficulty').textContent = chosenCategory + ': ' + chosenDifficulty;
   let songsByDifficulty = filterSongsByDifficulty(songsData, chosenDifficulty);
   songsByCategory = filterSongsByCategory(songsByDifficulty, chosenCategory);
+
+  if (songsByCategory.length <= 0) {
+    songsByCategory = filterSongsBySeries(songsByDifficulty, chosenCategory);
+  }
   // console.log(songsByDifficulty);
   // console.log(songsByCategory);
 
@@ -523,6 +526,13 @@ function setChosenSong() {
   player.loadPlaylist(youtubeId);
   player.loadVideoById(youtubeId);
   questionScreen.scrollIntoView({behavior: "smooth"});
+  console.log('chosen song', chosenSong);
   // window.alert('Title: ' + chosenSong.title + '\nDifficulty: ' + chosenSong.difficulty + '\nSeries: ' + chosenSong.series + '\nCategories: ' + chosenSong.categories);
   // console.log('Title: ' + chosenSong.title + '\nDifficulty: ' + chosenSong.difficulty + '\nSeries: ' + chosenSong.series + '\nCategories: ' + chosenSong.categories);
 }
+
+function getRandInt(min, max) {
+  const minCeiled = Math.ceil(min);
+  const maxFloored = Math.floor(max);
+  return Math.floor(Math.random() * (maxFloored - minCeiled) + minCeiled);
+} 

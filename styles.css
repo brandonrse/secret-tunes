@@ -6,6 +6,10 @@ body {
 
 }
 
+#series-check-div {
+  display: inline-grid;
+  grid-template-columns: repeat(3, 1fr);
+}
 
 .game-container {
   margin-top: 10px; 
@@ -272,12 +276,18 @@ div.circle {
   background-color: rgb(67, 67, 67);
   display: grid;
   place-content: center;
+  transition: 0.2s ease-in-out;
   /* animation: grow 1s infinite; */
 }
 
 div.circle > span {
   color: #eee;
   font-size: 50px;
+}
+
+div.circle:hover {
+  background-color: #312f59;
+  transition: 0.2s ease-in-out;
 }
 
 #play:hover {
