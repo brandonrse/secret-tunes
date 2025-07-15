@@ -18,8 +18,8 @@ document.getElementById('songForm').addEventListener('submit', function(event) {
   }
   songArray.push(song);
   arrayToTable();
-  console.log(event.target);
-  console.log(song);
+  // console.log(event.target);
+  // console.log(song);
 });
 
 document.getElementById('download').addEventListener('click', function() {
@@ -90,7 +90,7 @@ document.getElementById('loadSongs').addEventListener('click', () => {
       const data = JSON.parse(event.target.result);
       songArray = Array.isArray(data) ? data : [data];
       arrayToTable();
-      console.log('Uploaded JSON:', songArray);
+      // console.log('Uploaded JSON:', songArray);
     } catch (error) {
       console.error('Error parsing JSON:', error);
       alert('Invalid JSON file.');

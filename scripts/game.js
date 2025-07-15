@@ -118,7 +118,7 @@ document.getElementById('reroll').addEventListener('click', () => {
   } else {
     chosenSong = getRandomSong(songsByCategory);
   }
-  console.log('chosen rerolled song', chosenSong);
+  // console.log('chosen rerolled song', chosenSong);
   resetHintButtons();
 
   if (chosenSong.hints == null) {
@@ -526,7 +526,7 @@ function setChosenSong() {
   player.loadPlaylist(youtubeId);
   player.loadVideoById(youtubeId);
   questionScreen.scrollIntoView({behavior: "smooth"});
-  console.log('chosen song', chosenSong);
+  // console.log('chosen song', chosenSong);
   // window.alert('Title: ' + chosenSong.title + '\nDifficulty: ' + chosenSong.difficulty + '\nSeries: ' + chosenSong.series + '\nCategories: ' + chosenSong.categories);
   // console.log('Title: ' + chosenSong.title + '\nDifficulty: ' + chosenSong.difficulty + '\nSeries: ' + chosenSong.series + '\nCategories: ' + chosenSong.categories);
 }

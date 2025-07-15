@@ -21,7 +21,7 @@ import {
 
 var songs;
 var characters;
-var characterUrl = '../assets/images/adventure/enemies/';
+var characterUrl = './assets/images/adventure/enemies/';
 var chosenSong;
 var chosenProperty;
 var chosenCharacter;
@@ -116,8 +116,8 @@ loadLocalSongsCsv().then(
 function setup(res, entities) {
   songs = res;
   characters = entities;
-  console.log(songs);
-  console.log(entities);
+  // console.log(songs);
+  // console.log(entities);
   if (localStorage.getItem('playerState')) {
     playerState = JSON.parse(localStorage.getItem('playerState'));
     levelLabel.innerHTML = `Level: ${playerState.level} <br />Exp: ${playerState.exp}`;
@@ -216,9 +216,9 @@ guessBtn.addEventListener('click', function() {
   } else {
     chosenSongName = getSongName(chosenSong.title)
   }
-  console.log('chosen song name', chosenSongName);
-  console.log('chosen song', chosenSong);
-  console.log('inputted', songInputValue);
+  // console.log('chosen song name', chosenSongName);
+  // console.log('chosen song', chosenSong);
+  // console.log('inputted', songInputValue);
   
   if (chosenSongName === songInputValue) {
     console.log('correct!');
@@ -514,7 +514,7 @@ function correctPokemonSpelling() {
 }
 
 async function loadSong(song) {
-  console.log('song loaded: ', song);
+  // console.log('song loaded: ', song);
   const youtubeId = getYoutubeID(song.youtube);
   await playerReadyPromise;
   player.setVolume(10);
