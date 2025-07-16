@@ -460,7 +460,7 @@ function setupPlayers() {
       contestants[i] = playerName;
     }
     else {
-      playerName = contestants[i];
+      playerName = contestants[i] || `Player ${i}`;
     }
     
     const contestantDiv = document.createElement('div');
