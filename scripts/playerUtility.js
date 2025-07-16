@@ -55,12 +55,48 @@ export function getSongsBySeries(songs, series) {
   return songs.filter((s) => s.series.includes(series));
 }
 
+export function getSongsByCategoryOrSeries(songs, category, seriesName) {
+  return songs.filter((s) => s.categories.includes(category) || s.series.includes(seriesName));
+}
+
 export function getSongsWithoutCategory(songs, category) {
   return songs.filter((s) => !s.categories.includes(category));
 }
 
 export function getSongsWithoutDifficulty(songs, difficulty) {
   return songs.filter((s) => s.difficulty !== difficulty);
+}
+
+export function getAllCategories(songs) {
+  return [...new Set(songs.flatMap(song => song.categories))];
+}
+
+export function getAllSeries(songs) {
+  return [...new Set(songs.flatMap(song => song.series))];
+}
+
+export function getSongsByCategories(songs, chosenCategories) {
+  return songs.filter(song => song.categories.some(category => chosenCategories.includes(category)));
+}
+
+export function getSongsByMultipleSeries(songs, chosenSeries) {
+  return songs.filter(song => song.series.some(s => chosenSeries.has(s)));
+}
+
+export function getSongsByDifficultyCategorySeries(songs, difficulty, category, seriesName) {
+  return songs.filter(song => 
+    song.difficulty === difficulty &&
+    (song.categories.includes(category) ||
+    song.series.includes(seriesName))
+  );
+}
+
+export function getRandomSongByDifficultyCategorySeries(songs, difficulty, category, seriesName) {
+  const filtered = getSongsByDifficultyCategorySeries(songs, difficulty, category, seriesName);
+
+  if (filtered.length === 0) { return null; }
+  const rand = Math.floor(Math.random() * filtered.length);
+  return filtered[rand];
 }
 
 //#region ADVENTURE CHARACTERS

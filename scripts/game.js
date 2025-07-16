@@ -235,10 +235,12 @@ document.getElementById('switchCheckAll').addEventListener('change', (e) => {
   let seriesCheckAll = e.target;
   let allChecks = document.querySelectorAll('.series-input');
   if (!seriesCheckAll.checked) {
+    chosenSeries = [];
     allChecks.forEach(c => {
       c.checked = false;
     });
   } else {
+    chosenSeries = [...new Set(songsData.flatMap(s => s.series))].sort();
     allChecks.forEach(c => {
       c.checked = true;
     });
@@ -314,6 +316,7 @@ document.getElementById('cat5').addEventListener('change' , () => {
 });
 
 function getRandomSong(songs) {
+  console.log(songs);
   return songs[Math.floor(Math.random() * songs.length)];
 }
 
@@ -449,6 +452,7 @@ function setupSelectChecks(songSeries) {
     seriesCheckDiv.appendChild(checkDiv);
 
     checkInput.addEventListener('change', () => {
+      console.log(checkInput);
       if (checkInput.checked) {
         chosenSeries.push(s);
         chosenSeries.sort();
@@ -458,6 +462,7 @@ function setupSelectChecks(songSeries) {
           chosenSeries.splice(seriesIndex, 1);
         }
       }
+      console.log(chosenSeries);
       filterSongsByChosenSeries();
     });
   });
