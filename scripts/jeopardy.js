@@ -68,6 +68,13 @@ async function setupData(res) {
   await setupSeries([...res]);
 }
 
+let timerIndex = 0;
+
+setInterval(() => {
+  timerIndex = (timerIndex + 1) % colors.length;
+  questionContainer.style.backgroundColor = colors[timerIndex];
+}, 5000); // Change every 5 seconds
+
 //#region YOUTUBE
 
 function loadYouTubeAPI() {
@@ -234,13 +241,6 @@ playerCount.addEventListener('change', (e) => {
 newBoardButton.addEventListener('click', (e) => {
   e.preventDefault();
   gameContainer.innerHTML = '';
-  
-  for (let i = 0; i < playerSelectContainer.children.length; i++) {
-    const playerName = playerSelectContainer.children[i].textContent;
-    if (playerName !== '') {
-      contestants[i] = playerName;
-    }
-  }
 
   // Category Titles
   const categoriesDiv = document.createElement('div');
@@ -335,6 +335,8 @@ newBoardButton.addEventListener('click', (e) => {
     gameButtonsDiv.appendChild(buttonsRow);
   }
   gameContainer.appendChild(gameButtonsDiv);
+
+  setupPlayers();
 
   gameContainer.classList.add('show');
   gameContainer.scrollIntoView({behavior: 'smooth'});
@@ -449,7 +451,36 @@ function setCategoryLabel(category, difficulty) {
 }
 
 function setupPlayers() {
-  //TODO: Place players and names
+  const contestantsDiv = document.createElement('div');
+  contestantsDiv.className = 'container contestant-container';
+
+  for (let i = 0; i < playerSelectContainer.children.length; i++) {
+    let playerName = playerSelectContainer.children[i].value;
+    if (playerName !== '') {
+      contestants[i] = playerName;
+    }
+    else {
+      playerName = contestants[i];
+    }
+    
+    const contestantDiv = document.createElement('div');
+    contestantDiv.className = 'contestant'; 
+
+    const contestantName = document.createElement('p');
+    contestantName.textContent = playerName;
+    contestantName.className = 'contestant-name';
+
+    const contestantScore = document.createElement('input');
+    contestantScore.type = 'number';
+    contestantScore.id = 'contestantScore';
+    contestantScore.className = 'form-control';
+
+    contestantDiv.appendChild(contestantName);
+    contestantDiv.appendChild(contestantScore);
+    contestantsDiv.appendChild(contestantDiv);
+  }
+  gameContainer.appendChild(contestantsDiv);
+  
 }
 
 //#endregion

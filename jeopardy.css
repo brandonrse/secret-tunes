@@ -70,7 +70,6 @@ select {
   border: 10px gold solid;
   border-radius: 10px; 
   padding-bottom: 10px;
-  height: 100vh;
 }
 
 .category-headers {
@@ -145,6 +144,34 @@ select {
   background: linear-gradient(135deg, #D120A5, #8504A5);
 }
 
+.contestant-container {
+  /* display: grid;
+  grid-template-columns: repeat(4, 1fr); */
+  gap: 10px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.contestant {
+  flex-basis: 23%;
+  flex-grow: 1;
+}
+
+.contestant-name {
+  text-align: center;  
+  font-size: 26px;
+  margin: 0;
+}
+
+.contestant #contestantScore {
+  background: none;
+  color: white;
+  text-align: center;
+  font-size: 1.5rem;
+  width: 125px;
+  margin: auto;
+}
+
 /* SONG CONTAINER */
 .question-container {
   display: flex;
@@ -166,8 +193,8 @@ select {
   background-position: center;
   background-repeat: no-repeat;
   background-blend-mode: multiply; 
-  background-image: url("./fridaynight.gif");
-  /* background-image: url("./starry.gif"); */
+  /* background-image: url("./fridaynight.gif"); */
+  background-image: url("./starry.gif");
   transition: background-color 2s ease-in-out;
 }
 
@@ -256,28 +283,6 @@ select {
 #player-gif {
   position: relative;
   width: 100%;
-}
-
-.contestant {
-  margin-bottom: 15px;
-}
-
-.contestant p {
-  font-size: 30px;
-  margin: 0;
-  text-align: left;
-}
-
-.contestant .score {
-  font-size: 26px;
-}
-
-.contestant #playerScore {
-  background: none;
-  color: white;
-  text-align: center;
-  font-size: 1.5rem;
-  width: 100px;
 }
 
 #gif-div {
