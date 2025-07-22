@@ -40,7 +40,7 @@ const stickerContainer = document.querySelector('.sticker-container');
 const macguffinContainer = document.querySelector('.macguffin-container');
 const levelLabel = document.querySelector('.level-label');
 
-const macguffinsUrl = '../assets/images/adventure/items/';
+const macguffinsUrl = './assets/images/adventure/items/';
 const macguffins = [
   'Ancient Debris',
   'Attorney\'s Badge',
