@@ -195,6 +195,7 @@ select {
   background-blend-mode: multiply; 
   /* background-image: url("./fridaynight.gif"); */
   background-image: url("./starry.gif");
+
   transition: background-color 2s ease-in-out;
 }
 

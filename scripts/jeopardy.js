@@ -43,6 +43,17 @@ const colors = [
   'rgb(44, 107, 35)'
 ];
 
+const gifs = [
+  'url("./assets/images/gifs/mariorpg.gif")',
+  'url("./assets/images/gifs/naoto.gif")',
+  'url("./assets/images/gifs/narukami.gif")',
+  'url("./assets/images/gifs/splatoon.gif")',
+  'url("./assets/images/gifs/toothless.gif")',
+  'url("./assets/images/gifs/miraidon.gif")',
+  'url("./assets/images/gifs/zekrom.gif")',
+  'url("./assets/images/gifs/fridaynight.gif")',
+]
+
 var allSongs;
 var filteredSongs;
 var filteredSongsBySeries;
@@ -321,7 +332,7 @@ newBoardButton.addEventListener('click', (e) => {
       button.addEventListener('click', (e) => {
         resetSongInfo();
         setCategoryLabel(buttonCategory, buttonDifficulty);
-
+        changeGif();
         gameContainer.classList.remove('show');
         questionContainer.classList.add('show');
         questionContainer.scrollIntoView({behavior: 'smooth'});
@@ -434,6 +445,8 @@ function setupSongInfo(song) {
   });
 
   reroll.addEventListener('click', () => {
+    resetSongInfo();
+    changeGif();
     loadRandomSongByCategory(filteredSongs, song.categories[0]);
   });
 }
@@ -481,6 +494,10 @@ function setupPlayers() {
   }
   gameContainer.appendChild(contestantsDiv);
   
+}
+
+function changeGif() {
+  questionContainer.style.backgroundImage = gifs[getRandInt(0, gifs.length)];
 }
 
 //#endregion
