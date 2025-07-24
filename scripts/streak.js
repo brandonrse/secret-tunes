@@ -9,6 +9,10 @@ import {
   getGameName
 } from "./playerUtility.js";
 
+import {
+  gifs
+} from './data.js'
+
 var songsCsv = []; // CSV songs array
 var songsData = [];
 var songCategories = [];
@@ -19,6 +23,9 @@ let score = 0;
 var playedSongs = [];
 let gameOver = false;
 let unplayedSongs = [];
+let hintsUsed = 0;
+let hintClicked = false;
+let lives = 3;
 
 const songsDataList = document.getElementById('songDataListOptions');
 const container = document.querySelector('.song-container');
@@ -28,7 +35,11 @@ const highScoreText = document.querySelector('.high-score');
 const songGameText = document.querySelector('.song-game');
 const songTitleText = document.querySelector('.song-title');
 const resultText = document.querySelector('.result');
-
+const songInput = document.getElementById('songDataList');
+const hintBtn = document.querySelector('.hint-btn');
+const hintDiv = document.querySelector('.hint-div');
+const hintsUsedDiv = document.querySelector('.hints-used');
+const hearts = document.querySelectorAll('.heart');
 
 const colors = [
   'rgb(87, 4, 58)',
@@ -199,9 +210,18 @@ function setupDataList(songs) {
   });
 }
 
+hintBtn.addEventListener('click', handleRevealHintClick);
+
 async function loadRandomSong(songs) {
   const unplayedSongs = getUnplayedSongs(songs, playedSongs);
   randomSong = getRandomSong(unplayedSongs);
+
+  if (randomSong.hints) {
+    hintBtn.classList.remove('d-none');
+    hintDiv.innerHTML = randomSong.hints;
+  } else {
+    hintBtn.classList.add('d-none');
+  }
   // console.log('random song:', randomSong);
   const youtubeId = getYoutubeID(randomSong.youtube);
   await playerReadyPromise;
@@ -210,19 +230,39 @@ async function loadRandomSong(songs) {
   player.loadVideoById(youtubeId);
 }
 
+
+function handleRevealHintClick(e) {
+  e.preventDefault();
+
+  if (!hintClicked) {
+    hintClicked = true;
+    hintsUsed += 1;
+    hintsUsedDiv.innerHTML = `Hints Used: ${hintsUsed}`;
+  } 
+
+  if (hintBtn.textContent === 'Reveal Hint') {
+    hintDiv.classList.remove('d-none');
+    hintBtn.textContent = 'Hide Hint';
+  }
+  else {
+    hintDiv.classList.add('d-none');
+    hintBtn.textContent = 'Reveal Hint';
+  }
+}
+
 function streakFormSubmit(event) {
   if (gameOver) {
     restart();
     gameOver = false;
     return;
   }
+  hintClicked = true;
   if (playedSongs.length === songsCsv.length) {
     resultText.textContent = 'Congratulations! You\'ve guessed every available song!';
     gameOver = true;
     streakBtn.textContent = 'Restart'
     return;
   }
-  const songInput = document.getElementById('songDataList');
   const songInputValue = songInput.value;
   let randomSongName = '';
   songTitleText.innerHTML = getSongName(randomSong.title);
@@ -236,38 +276,33 @@ function streakFormSubmit(event) {
     streakBtn.disabled = true;
     console.log('Correct! Choosing next song...');
     resultText.innerHTML = '✔️';
-    songInput.innerHTML = '';
-    songInput.value = '';
-    score += 1;
-    scoreText.innerHTML = 'Score: ' + score;
+    score += 1;  
     if (score > getHighScore()) {
       highScoreText.innerHTML = 'High Score: ' + score;
       localStorage.setItem('highScore', score);
     }
-    playedSongs.push(randomSong.title);
-    timerElement.style.display = 'block';
-    
-    startCountdown(5, timerElement, () => {
-      songTitleText.innerHTML = '???'
-      songGameText.innerHTML = '?????'
-      resultText.textContent = '';
-      timerElement.textContent = '';
-      loadRandomSong(songsCsv);
-      streakBtn.disabled = false;
-      timerElement.style.display = 'none';
-    });
+    readyUp();
     
   } else {
-    console.log('Game Over! Try again.');
-    gameOver = true;
+    streakBtn.disabled = true;
+    lives -= 1;
+    editHearts();
     resultText.textContent = '❌'
     scoreText.textContent = 'Score: ' + score;
-    streakBtn.textContent = 'Restart'
-    if (score > getHighScore()) {
-      highScoreText.value = 'High Score: ' + score;
-      localStorage.setItem('highScore', score);
+    
+    // Game Over
+    if (lives === 0) {    
+      streakBtn.disabled = false;
+      console.log('Game Over! Try again.');
+      gameOver = true;
+      streakBtn.textContent = 'Restart';    
+      if (score > getHighScore()) {
+        highScoreText.value = 'High Score: ' + score;
+        localStorage.setItem('highScore', score);
+      }
+    } else {
+      readyUp();
     }
-
   }
 }
 
@@ -278,11 +313,57 @@ function getHighScore() {
 function restart() {
   playedSongs = [];
   score = 0;
+  hintsUsed = 0;
+  lives = 3;
+  resetHearts();
   scoreText.textContent = 'Score: ' + score;
   songTitleText.innerHTML = '???';
   songGameText.innerHTML = '?????';
   resultText.textContent = '';
   streakBtn.textContent = 'Submit';
+  resetHintElements();
   document.getElementById('songDataList').value = '';
   loadRandomSong(songsCsv);
+}
+
+function changeGif() {
+  container.style.backgroundImage = gifs[getRandInt(0, gifs.length)];
+}
+
+function resetHintElements() {
+  hintsUsedDiv.innerHTML = `Hints Used: ${hintsUsed}`;
+  hintDiv.classList.add('d-none');
+  hintBtn.textContent = 'Reveal Hint';
+  hintBtn.classList.add('d-none');
+}
+
+function readyUp() {
+  songInput.innerHTML = '';
+  songInput.value = '';
+  scoreText.innerHTML = 'Score: ' + score;
+  playedSongs.push(randomSong.title);
+  timerElement.style.display = 'block';
+  
+  startCountdown(3, timerElement, () => {
+    songTitleText.innerHTML = '???'
+    songGameText.innerHTML = '?????'
+    resultText.textContent = '';
+    timerElement.textContent = '';
+    resetHintElements();
+    loadRandomSong(songsCsv);
+    streakBtn.disabled = false;
+    timerElement.style.display = 'none';
+    hintClicked = false;
+    changeGif();
+  });
+}
+
+function editHearts() {
+  hearts[lives].classList.add('greyscale');
+}
+
+function resetHearts() {
+  for (let i = 0; i < lives; i++) {
+    hearts[i].classList.remove('greyscale');
+  }
 }

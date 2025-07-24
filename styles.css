@@ -302,15 +302,6 @@ div.circle:hover {
   width: 200px;
 }
 
-#hint-div {
-  font-size: 40px;
-  background-color: darkslategray;
-  width: 500px;
-  /* height: 100px; */
-  text-align: center;
-  align-content: center;
-  border-radius: 60px;
-}
 
 
 @keyframes grow {
@@ -356,11 +347,37 @@ div.circle:hover {
 #timer {
   font-size: xx-large;
   background-color: rgba(255,255,255,0.2);
-  border-radius: 45px;
+  border-radius: 5px;
   border: solid;
   color: wheat;
   margin: 20px auto;
   padding: 10px;
   width: 105px;
   display: none;
+}
+
+.hint-btn {
+  margin-top: 10px;
+}
+
+.d-none {
+  display: none;
+}
+
+.hint-div {
+  font-size: 2vw;
+  background-color: darkslategray;
+  max-width: 500px;
+  text-align: center;
+  align-content: center;
+  border-radius: 5px;
+  margin: 10px auto;
+}
+
+.heart {
+  width: 4vw;
+}
+
+.greyscale {
+  filter: grayscale();
 }

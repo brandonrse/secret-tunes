@@ -80,8 +80,11 @@ export function getSongsByCategories(songs, chosenCategories) {
 }
 
 export function getSongsByMultipleSeries(songs, chosenSeries) {
-  return songs.filter(song => song.series.some(s => chosenSeries.has(s)));
+  return songs.filter(song => 
+    song.series.length > 0 && song.series.every(s => chosenSeries.has(s))
+  );
 }
+
 
 export function getSongsByDifficultyCategorySeries(songs, difficulty, category, seriesName) {
   return songs.filter(song => 

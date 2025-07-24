@@ -40,7 +40,13 @@
   </div>
   <div class="container song-container">
     <h2 class="high-score">High Score: 0</h2>
+    <div class="lives">
+      <img class="heart" src="./assets/images/ui/heart_container.png" alt="Legend of Zelda Heart Container">
+      <img class="heart" src="./assets/images/ui/heart_container.png" alt="Legend of Zelda Heart Container">
+      <img class="heart" src="./assets/images/ui/heart_container.png" alt="Legend of Zelda Heart Container">
+    </div>
     <h2 class="score">Score: 0</h2>
+    <h2 class="hints-used">Hints Used: 0</h2>
     <h1 class="result text-center"></h1>
     <h1 class="song-title text-center">???</h1>
     <h2 class="song-game text-center">?????</h1>
@@ -59,7 +65,9 @@
       <input class="form-control" list="songDataListOptions" id="songDataList" placeholder="Type to search a song...">
       <datalist id="songDataListOptions">
       </datalist>
-      <button class="btn btn-success streak-btn" type="button">Submit</button>
+      <button class="btn btn-success streak-btn" type="button">Submit</button><br />
+      <button class="btn btn-warning hint-btn d-none">Reveal Hint</button>
+      <div class="hint-div d-none"></div>
     </div>
     <div id="timer" class="text-center"></div>
   </div>

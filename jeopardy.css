@@ -243,19 +243,25 @@ select {
   height: 90%;
 }
 
+#ad-warning {
+  color: red;
+  font-weight: bold;
+  display: none;
+}
+
 #category-difficulty {
   margin: 0 auto auto 0;
   background-color: #2b4162;
   position: absolute;
   right: 10px;
   bottom: 10px;
-  height: 73px;
+  height: 50px;
   align-content: center;
   padding: 0px 10px 0px 10px;
   border: 2px solid white;
   border-radius: 20px;
   width: fit-content;
-  font-size: 2.5vw;
+  font-size: 1.5vw;
 }
 
 #backToBoard {
@@ -264,11 +270,11 @@ select {
 
 #span-name {
   font-weight: bold;
-  font-size: 75px;
+  font-size: 4vw;
 }
 
 #span-game {
-  font-size: 75px;
+  font-size: 4vw;
   font-style: italic;
   border-top: azure 2px dotted;
   border-bottom: azure 2px dotted;
@@ -324,7 +330,7 @@ div.circle:hover {
 }
 
 #hint-div {
-  font-size: 40px;
+  font-size: 2vw;
   background-color: darkslategray;
   width: 500px;
   /* height: 100px; */

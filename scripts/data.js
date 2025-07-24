@@ -1,3 +1,18 @@
+export const gifs = [
+  'url("./assets/images/gifs/mariorpg.gif")',
+  'url("./assets/images/gifs/naoto.gif")',
+  'url("./assets/images/gifs/narukami.gif")',
+  'url("./assets/images/gifs/splatoon.gif")',
+  'url("./assets/images/gifs/toothless.gif")',
+  'url("./assets/images/gifs/miraidon.gif")',
+  'url("./assets/images/gifs/zekrom.gif")',
+  'url("./assets/images/gifs/fridaynight.gif")',
+  'url("./assets/images/gifs/dance-ghirahim.gif")',
+  'url("./assets/images/gifs/blastoise-water.gif")',
+  'url("./assets/images/gifs/ghost-trick-lamp.gif")',
+  'url("./assets/images/gifs/greavard-dance.gif")',
+];
+
 export async function loadLocalSongsCsv() {
   const response = await fetch('./Songs Spreadsheet - Songs.csv');
   const file = await response.text();

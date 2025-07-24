@@ -1,5 +1,6 @@
 import {
-  loadLocalSongsCsv
+  loadLocalSongsCsv,
+  gifs
 } from './data.js';
 
 import { 
@@ -43,20 +44,6 @@ const colors = [
   'rgb(44, 107, 35)'
 ];
 
-const gifs = [
-  'url("./assets/images/gifs/mariorpg.gif")',
-  'url("./assets/images/gifs/naoto.gif")',
-  'url("./assets/images/gifs/narukami.gif")',
-  'url("./assets/images/gifs/splatoon.gif")',
-  'url("./assets/images/gifs/toothless.gif")',
-  'url("./assets/images/gifs/miraidon.gif")',
-  'url("./assets/images/gifs/zekrom.gif")',
-  'url("./assets/images/gifs/fridaynight.gif")',
-  'url("./assets/images/gifs/dance-ghirahim.gif")',
-  'url("./assets/images/gifs/blastoise-water.gif")',
-  'url("./assets/images/gifs/ghost-trick-lamp.gif")',
-  'url("./assets/images/gifs/greavard-dance.gif")',
-]
 
 var allSongs;
 var filteredSongs;
@@ -118,7 +105,7 @@ const playerReadyPromise = loadYouTubeAPI().then(() => {
       height: '0',
       width: '0',
       videoId: 'XUmufRvgXGk',
-      playerVars: { controls: 0, loop: 1, playlist: 'XUmufRvgXGk' },
+      playerVars: { controls: 1, loop: 1, playlist: 'XUmufRvgXGk' },
       events: {
         onReady: () => {
           console.log("Player is ready!");
@@ -130,12 +117,29 @@ const playerReadyPromise = loadYouTubeAPI().then(() => {
   });
 });
 
+let playerListenersInitialized = false;
 
 document.getElementById('play').addEventListener('click', () => {
-  playerReadyPromise.then(() => {
-    player.playVideo();
-  })
+  playerReadyPromise.then((player) => {
+    if (!playerListenersInitialized) {
+      monitorForLikelyAd(player);
+
+      player.addEventListener('onStateChange', (event) => {
+        if (event.data === YT.PlayerState.PLAYING) {
+          const ct = player.getCurrentTime();
+          if (ct < 1) {
+            player.seekTo(1);
+          }
+        }
+      });
+
+      playerListenersInitialized = true;
+    }
+
+    player.playVideo(); // optional: auto-play
+  });
 });
+
 
 document.getElementById('pause').addEventListener('click', () => player.pauseVideo());
 
@@ -152,6 +156,41 @@ function onPlayerError(event) {
   console.log('Loading new random song...');
   loadSong(getRandomSong(filteredSongs));
 }
+
+let adMonitorIntervalStarted = false;
+
+function monitorForLikelyAd(player) {
+  if (adMonitorIntervalStarted) return;
+  adMonitorIntervalStarted = true;
+
+  let lastTime = 0;
+  let stuckCounter = 0;
+
+  setInterval(() => {
+    if (!player || typeof player.getCurrentTime !== 'function') return;
+
+    const currentTime = player.getCurrentTime();
+
+    if (currentTime === lastTime && currentTime < 2 && player.getPlayerState() === YT.PlayerState.PLAYING) {
+      stuckCounter++;
+    } else {
+      stuckCounter = 0;
+    }
+
+    lastTime = currentTime;
+
+    showAdWarning(stuckCounter >= 2);
+  }, 1000);
+}
+
+
+function showAdWarning(show) {
+  const el = document.getElementById('ad-warning');
+  if (!el) return;
+  el.style.display = show ? 'block' : 'none';
+  el.textContent = show ? 'An ad is likely playing...' : '';
+}
+
 
 //#endregion
 
@@ -198,7 +237,7 @@ async function setupCategories(cat) {
 
 
 async function setupSeries(songs) {
-  const filteredSeries = getAllSeries(songs);
+  const filteredSeries = getAllSeries(songs).sort();
   selectedSeries.clear();
   seriesCheckDiv.innerHTML = '';
 
@@ -226,8 +265,8 @@ async function setupSeries(songs) {
       else {
         selectedSeries.delete(s);
       }
-
       filteredSongsBySeries = getSongsByMultipleSeries(songs, selectedSeries);
+
     });
 
     filteredSongsBySeries = getSongsByMultipleSeries(songs, selectedSeries);
@@ -360,6 +399,7 @@ newBoardButton.addEventListener('click', (e) => {
 //#endregion
 
 //#region GAME
+revealHint.addEventListener('click', handleRevealHintClick);
 
 // Go back to the jeopardy board
 document.getElementById('backToBoard').addEventListener('click', () => {
@@ -422,37 +462,41 @@ function removeSong(songs, song) {
 }
 
 function setupSongInfo(song) {
-  revealSong.addEventListener('click', () => {
-    const songGame = song.title.split(' ~ ')[0];
-    const songTitle = song.title.split(' ~ ')[1];
-    songTitleSpan.textContent = songTitle;
+  hintDiv.innerHTML = song.hints;
+
+  // Enable or disable the hint button
+  revealHint.disabled = !song.hints;
+
+  // Reset to default state
+  hintDiv.classList.add('d-none');
+  revealHint.textContent = 'Reveal Hint';
+
+  // Reveal song logic
+  revealSong.onclick = () => {
+    const [songGame, songTitle] = song.title.split(' ~ ');
     songGameSpan.textContent = songGame;
-  });
+    songTitleSpan.textContent = songTitle;
+  };
 
-  if (song.hints === null) {
-      revealHint.disabled = true;
-  } else {
-    revealHint.disabled = false;
-  }
-
-  revealHint.addEventListener('click', (e) => {
-    e.preventDefault();
-    if (revealHint.textContent === 'Reveal Hint') {
-      hintDiv.innerHTML = song.hints;
-      hintDiv.classList.remove('d-none');
-      revealHint.textContent = 'Hide Hint';
-    }
-    else {
-      hintDiv.classList.add('d-none');
-      revealHint.textContent = 'Reveal Hint';
-    }
-  });
-
-  reroll.addEventListener('click', () => {
+  // Reroll logic
+  reroll.onclick = () => {
     resetSongInfo();
     changeGif();
     loadRandomSongByCategory(filteredSongs, song.categories[0]);
-  });
+  };
+}
+
+
+function handleRevealHintClick(e) {
+  e.preventDefault();
+  if (revealHint.textContent === 'Reveal Hint') {
+    hintDiv.classList.remove('d-none');
+    revealHint.textContent = 'Hide Hint';
+  }
+  else {
+    hintDiv.classList.add('d-none');
+    revealHint.textContent = 'Reveal Hint';
+  }
 }
 
 function resetSongInfo() {
