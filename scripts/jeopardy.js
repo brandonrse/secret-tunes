@@ -52,6 +52,10 @@ const gifs = [
   'url("./assets/images/gifs/miraidon.gif")',
   'url("./assets/images/gifs/zekrom.gif")',
   'url("./assets/images/gifs/fridaynight.gif")',
+  'url("./assets/images/gifs/dance-ghirahim.gif")',
+  'url("./assets/images/gifs/blastoise-water.gif")',
+  'url("./assets/images/gifs/ghost-trick-lamp.gif")',
+  'url("./assets/images/gifs/greavard-dance.gif")',
 ]
 
 var allSongs;
