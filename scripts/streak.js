@@ -263,7 +263,7 @@ function streakFormSubmit(event) {
     streakBtn.textContent = 'Restart'
     return;
   }
-  const songInputValue = songInput.value;
+  const songInputValue = songInput.value.trim();
   let randomSongName = '';
   songTitleText.innerHTML = getSongName(randomSong.title);
   songGameText.innerHTML = getGameName(randomSong.title);
