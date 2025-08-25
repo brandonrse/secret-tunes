@@ -6,6 +6,14 @@ body {
 
 }
 
+.modes {
+  text-align: center;
+}
+
+.modes .btn {
+  background: none;
+}
+
 #series-check-div {
   display: inline-grid;
   grid-template-columns: repeat(3, 1fr);

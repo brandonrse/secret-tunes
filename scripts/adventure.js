@@ -429,8 +429,8 @@ function getDifficultyWeights(level) {
 
   const weights = {
     Easy: Math.max(100 - lvl * 2, 0),         // Drops fast
-    Normal: Math.max(100 - lvl * 1.5, 5),     // Drops slower
-    Tough: Math.min(lvl * 1.2, 100),          // Rises
+    Normal: Math.max(100 - lvl * 1.7, 5),     // Drops slower
+    Tough: Math.min(lvl * 1.5, 100),          // Rises
     Lunatic: Math.max(0, lvl - 10),           // Starts appearing after level 10
     Merciless: Math.max(0, lvl - 20) * 1.5    // Starts appearing after level 20
   };

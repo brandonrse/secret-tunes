@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Song List</title>
+
+  <link rel="stylesheet" href="songs.css" />
+</head>
+
+<body>
+  <nav class="navbar">
+    <a href="./index.html" class="navbar-brand">Secret Tunes</a>
+
+    <div class="hamburger" id="hamburger">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+
+    <div class="navbar-menu" id="navbarMenu">
+      <a href="./index.html">Home</a>
+      <a href="./songs.html">All Songs</a>
+      <a href="./jeopardy.html">Jeopardy Mode</a>
+      <a href="./score.html">Score Attack</a>
+      <a href="./adventure.html">Adventure Mode</a>
+    </div>
+  </nav>
+
+  <body>
+    <header>
+      <div class="wrap inner">
+        <div>
+          <h1>Song Library</h1>
+          <div class="sub">Search, filter, and play songs.</div>
+        </div>
+        <div class="controls" role="region" aria-label="Filters and search">
+          <label class="field" aria-label="Search by title, game, series or category">
+            <span aria-hidden>🔎</span>
+            <input id="search" type="search" placeholder="Search…" autocomplete="off" />
+          </label>
+          <label class="field">
+            <span class="sr-only">Game</span>
+            <select id="game"></select>
+          </label>
+          <label class="field">
+            <span class="sr-only">Series</span>
+            <select id="series"></select>
+          </label>
+          <label class="field">
+            <span class="sr-only">Category</span>
+            <select id="category"></select>
+          </label>
+          <label class="field">
+            <span class="sr-only">Sort</span>
+            <select id="sort">
+              <option value="title-asc">Title ↑</option>
+              <option value="title-desc">Title ↓</option>
+              <option value="diff-asc">Difficulty ↑</option>
+              <option value="diff-desc">Difficulty ↓</option>
+              <option value="game-asc">Game ↑</option>
+              <option value="game-desc">Game ↓</option>
+            </select>
+          </label>
+        </div>
+        <div class="row">
+          <button id="clear" class="btn" type="button" title="Clear filters">♻️ Clear filters</button>
+          <span class="pill" id="count">0 results</span>
+        </div>
+      </div>
+    </header>
+    <div id="inlinePlayerTemplate" class="inline-player-container" hidden>
+      <div class="inline-player">
+        <iframe id="inlinePlayer" width="100%" height="360" src="" title="YouTube video player" frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen></iframe>
+      </div>
+    </div>
+
+    <main class="wrap">
+      <section id="grid" class="grid" aria-live="polite" aria-busy="false"></section>
+      <div id="empty" class="empty" hidden>No results. Try different filters.</div>
+    </main>
+
+    <dialog id="playerDialog">
+      <div class="modal">
+        <header class="wrap" style="padding:12px 16px">
+          <strong id="modalTitle">Now Playing</strong>
+          <button class="btn close" type="button" id="closeDialog" aria-label="Close">✖</button>
+        </header>
+        <div class="frame">
+          <iframe id="player" width="100%" height="100%" src="" title="YouTube video player" frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen></iframe>
+        </div>
+        <div class="content">
+          <div class="meta" id="modalMeta"></div>
+        </div>
+      </div>
+    </dialog>
+
+    <script src="./scripts/songs.js" type="module" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"></script>
+  </body>
+
+</html>
