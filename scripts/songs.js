@@ -18,7 +18,6 @@ loadLocalSongsCsv().then(
 
 function setup(res) {
   songs = res;
-  console.log(songs);
   populateFilters();
   applyFilters();
 }

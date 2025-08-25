@@ -1,10 +1,44 @@
-body {
-  background-color: rgb(37, 37, 37)!important;
-  color: white!important;
-  background-color: #2b4162;
-  background-image: linear-gradient(90deg, #2b4162 0%, #12100e 100%);
+    :root {
+      --bg: #0b0c10;
+      --panel: #151821;
+      --muted: #98a2b3;
+      --text: #e5e7eb;
+      --brand: #6ee7b7;
+      --chip: #1f2430;
+      --chip-border: #2b3242;
+      --focus: #22d3ee;
+      --danger: #ef4444;
+      --shadow: 0 10px 25px rgba(0, 0, 0, .25);
+    }
 
-}
+    @media (prefers-color-scheme: light) {
+      :root {
+        --bg: #f6f7fb;
+        --panel: #ffffff;
+        --muted: #6b7280;
+        --text: #0f172a;
+        --brand: #0ea5e9;
+        --chip: #f3f4f6;
+        --chip-border: #e5e7eb;
+        --focus: #2563eb;
+      }
+    }
+
+    * {
+      box-sizing: border-box
+    }
+
+    html,
+    body {
+      height: 100%
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Arial, "Apple Color Emoji", "Segoe UI Emoji"
+    }
 
 .modes {
   text-align: center;
@@ -389,3 +423,83 @@ div.circle:hover {
 .greyscale {
   filter: grayscale();
 }
+
+    /* Navbar */
+    .navbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 24px;
+      background: var(--panel);
+      border-bottom: 1px solid var(--chip-border);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .navbar-brand {
+      font-weight: 700;
+      font-size: 1.4rem;
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .navbar-menu {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .navbar-menu a {
+      text-decoration: none;
+      color: var(--text);
+      font-weight: 500;
+      padding: 6px 12px;
+      border-radius: 8px;
+      transition: background 0.2s;
+    }
+
+    .navbar-menu a:hover {
+      background: var(--chip);
+    }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 4px;
+      cursor: pointer;
+    }
+
+    .hamburger span {
+      width: 24px;
+      height: 3px;
+      background: var(--text);
+      border-radius: 2px;
+    }
+
+    /* Responsive */
+    @media (max-width: 720px) {
+      .navbar-menu {
+        display: none;
+        flex-direction: column;
+        gap: 12px;
+        background: var(--panel);
+        position: absolute;
+        top: 60px;
+        right: 24px;
+        padding: 16px;
+        border: 1px solid var(--chip-border);
+        border-radius: 14px;
+        box-shadow: var(--shadow);
+      }
+
+      .navbar-menu.active {
+        display: flex;
+      }
+
+      .hamburger {
+        display: flex;
+      }
+    }
+
+    

@@ -1,0 +1,215 @@
+    :root {
+      --bg: #0b0c10;
+      --panel: #151821;
+      --muted: #98a2b3;
+      --text: #e5e7eb;
+      --brand: #6ee7b7;
+      --chip: #1f2430;
+      --chip-border: #2b3242;
+      --focus: #22d3ee;
+      --danger: #ef4444;
+      --shadow: 0 10px 25px rgba(0, 0, 0, .25);
+    }
+
+    @media (prefers-color-scheme: light) {
+      :root {
+        --bg: #f6f7fb;
+        --panel: #ffffff;
+        --muted: #6b7280;
+        --text: #0f172a;
+        --brand: #0ea5e9;
+        --chip: #f3f4f6;
+        --chip-border: #e5e7eb;
+        --focus: #2563eb;
+      }
+    }
+
+    * {
+      box-sizing: border-box
+    }
+
+    html,
+    body {
+      height: 100%
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Arial, "Apple Color Emoji", "Segoe UI Emoji"
+    }
+
+    .navbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 24px;
+      background: var(--panel);
+      border-bottom: 1px solid var(--chip-border);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .navbar-brand {
+      font-weight: 700;
+      font-size: 1.4rem;
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .navbar-menu {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .navbar-menu a {
+      text-decoration: none;
+      color: var(--text);
+      font-weight: 500;
+      padding: 6px 12px;
+      border-radius: 8px;
+      transition: background 0.2s;
+    }
+
+    .navbar-menu a:hover {
+      background: var(--chip);
+    }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 4px;
+      cursor: pointer;
+    }
+
+    .hamburger span {
+      width: 24px;
+      height: 3px;
+      background: var(--text);
+      border-radius: 2px;
+    }
+
+    @media (max-width: 720px) {
+      .navbar-menu {
+        display: none;
+        flex-direction: column;
+        gap: 12px;
+        background: var(--panel);
+        position: absolute;
+        top: 60px;
+        right: 24px;
+        padding: 16px;
+        border: 1px solid var(--chip-border);
+        border-radius: 14px;
+        box-shadow: var(--shadow);
+      }
+
+      .navbar-menu.active {
+        display: flex;
+      }
+
+      .hamburger {
+        display: flex;
+      }
+    }
+
+    fieldset {
+      margin-bottom: 1rem;
+      padding: 1rem;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+
+    input[type="text"],
+    input[type="url"] {
+      width: 100%;
+      padding: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .card.bg-panel {
+      background: var(--panel);
+      color: var(--text);
+    }
+
+    fieldset {
+      background: var(--chip);
+    }
+
+    legend {
+      padding: 0 0.5rem;
+      font-weight: 600;
+      color: var(--brand);
+    }
+
+    .form-check-input:checked {
+      border-color: var(--brand);
+      background-color: var(--brand);
+    }
+
+    button.btn-success {
+      background-color: var(--brand);
+      border-color: var(--brand);
+    }
+
+    .btn {
+      color: black;
+    }
+
+    button.btn-success:hover {
+      background-color: var(--focus);
+      border-color: var(--focus);
+    }
+
+    .compact-form .form-label {
+      margin-bottom: 0.25rem;
+    }
+
+    .compact-form input.form-control {
+      padding: 0.4rem 0.5rem;
+      font-size: 0.9rem;
+    }
+
+    .chip-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+      gap: 0.4rem;
+    }
+
+    .chip-checkbox input,
+    .chip-radio input {
+      display: none;
+    }
+
+    .chip-checkbox label,
+    .chip-radio label {
+      padding: 0.35rem 0.7rem;
+      border-radius: 50px;
+      border: 1px solid var(--chip-border);
+      background: var(--chip);
+      color: var(--text);
+      cursor: pointer;
+      text-align: center;
+      font-size: 0.85rem;
+      transition: all 0.2s ease-in-out;
+      display: block;
+    }
+
+    .chip-checkbox input:checked+label,
+    .chip-radio input:checked+label {
+      background: var(--brand);
+      color: var(--bg);
+      border-color: var(--brand);
+    }
+
+    .chip-checkbox label:hover,
+    .chip-radio label:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+    }
