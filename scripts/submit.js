@@ -26,10 +26,6 @@ function setup(res) {
   songs = res;
   categories = getAllCategories(res).sort();
   series = getAllSeries(res).sort();
-  console.log(songs);
-  console.log(series);
-  console.log(categories);
-
 }
 const hamburger = document.getElementById('hamburger');
 const menu = document.getElementById('navbarMenu');
