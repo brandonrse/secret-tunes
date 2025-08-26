@@ -89,8 +89,7 @@ form.addEventListener('submit', e => {
 
   const formData = new FormData(form);
   const data = {
-    title: formData.get('title'),
-    game: formData.get('game'),
+    title: `${formData.get('game')} ~ ${formData.get('title')}`,
     youtube: formData.get('youtube'),
     hints: formData.get('hints'),
     difficulty: formData.get('difficulty'),
