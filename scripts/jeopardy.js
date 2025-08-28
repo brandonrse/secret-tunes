@@ -70,6 +70,13 @@ async function setupData(res) {
   await setupSeries([...res]);
 }
 
+const hamburger = document.getElementById('hamburger');
+const menu = document.getElementById('navbarMenu');
+
+hamburger.addEventListener('click', () => {
+  menu.classList.toggle('active');
+});
+
 let timerIndex = 0;
 
 setInterval(() => {

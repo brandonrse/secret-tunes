@@ -419,3 +419,9 @@
       height: 270px;
       /* 16:9 */
     }
+
+.navbar-menu a.active {
+  background: var(--brand);
+  color: black;
+  font-weight: 700;
+}

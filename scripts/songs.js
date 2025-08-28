@@ -229,5 +229,3 @@ document.addEventListener('click', (e) => {
   inlinePlayer.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`;
 
 });
-
-// Optional: pause video if user clicks a close button or another play button

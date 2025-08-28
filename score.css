@@ -1,0 +1,71 @@
+.scoreboard {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.score-text, .high-score {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.hints-used {
+  font-size: 1.4rem;
+  color: #aaa;
+  margin-top: -0.25rem; 
+}
+
+.hearts {
+  display: flex;
+  justify-content: center;
+  gap: 0.3rem;
+  font-size: 1.5rem;
+}
+
+.song-info h1, .song-info h2 {
+  margin: 8px 0;
+}
+
+.result {
+  font-size: 3rem;
+  font-weight: bold;
+  animation: pop-in 0.3s ease;
+}
+
+.streak-form.card {
+  max-width: 500px;
+  margin: 0 auto;
+  background: var(--panel);
+  border: 1px solid var(--chip-border);
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+}
+
+.hint-div {
+  font-size: 1.1rem;
+  background: var(--chip);
+  border: 1px solid var(--chip-border);
+  border-radius: 10px;
+  padding: 10px;
+  color: var(--text);
+}
+
+.hint-btn, .streak-btn {
+  max-width: fit-content;
+  margin: auto;
+}
+
+.heart {
+  width: 40px;
+  transition: filter 0.3s ease, transform 0.2s ease;
+}
+.heart.greyscale {
+  filter: grayscale(100%) brightness(0.5);
+  transform: scale(0.9);
+}
+
+/* Animations */
+@keyframes pop-in {
+  from { transform: scale(0.5); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}

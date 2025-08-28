@@ -26,11 +26,12 @@ let unplayedSongs = [];
 let hintsUsed = 0;
 let hintClicked = false;
 let lives = 3;
+let totalLives = 3;
 
 const songsDataList = document.getElementById('songDataListOptions');
 const container = document.querySelector('.song-container');
 const streakBtn = document.querySelector('.streak-btn');
-const scoreText = document.querySelector('.score');
+const scoreText = document.querySelector('.score-text');
 const highScoreText = document.querySelector('.high-score');
 const songGameText = document.querySelector('.song-game');
 const songTitleText = document.querySelector('.song-title');
@@ -39,7 +40,7 @@ const songInput = document.getElementById('songDataList');
 const hintBtn = document.querySelector('.hint-btn');
 const hintDiv = document.querySelector('.hint-div');
 const hintsUsedDiv = document.querySelector('.hints-used');
-const hearts = document.querySelectorAll('.heart');
+const hearts = document.querySelector('.hearts');
 
 const colors = [
   'rgb(87, 4, 58)',
@@ -49,6 +50,13 @@ const colors = [
   'rgb(100, 20, 20)',
   'rgb(44, 107, 35)'
 ];
+
+const hamburger = document.getElementById('hamburger');
+const menu = document.getElementById('navbarMenu');
+
+hamburger.addEventListener('click', () => {
+  menu.classList.toggle('active');
+});
 
 let playerReadyPromise = new Promise((resolve) => {
   window.onYouTubeIframeAPIReady = () => {
@@ -134,34 +142,34 @@ setInterval(() => {
 
 streakBtn.addEventListener('click', streakFormSubmit);
 
-// Reads the inputted csv file
-document.getElementById('songsCsv').addEventListener('change', async function(event) {
-  // const file = event.target.files[0];
-  const file = await fetch('./Songs Spreadsheet - Songs.csv');
+// // Reads the inputted csv file
+// document.getElementById('songsCsv').addEventListener('change', async function(event) {
+//   // const file = event.target.files[0];
+//   const file = await fetch('./Songs Spreadsheet - Songs.csv');
 
-  if (file) {
-      const reader = new FileReader();
-      reader.onload = function(e) {
-          const text = e.target.result;
-          songsCsv = parseCSV(text); 
-          songsData = structuredClone(songsCsv); // Copies the csv into songs data
-          setupSongs(songsCsv); 
-          setupDataList(songsCsv);
-      };
-      reader.readAsText(file);
-  }
-});
+//   if (file) {
+//       const reader = new FileReader();
+//       reader.onload = function(e) {
+//           const text = e.target.result;
+//           songsCsv = parseCSV(text); 
+//           songsData = structuredClone(songsCsv); // Copies the csv into songs data
+//           setupSongs(songsCsv); 
+//           setupDataList(songsCsv);
+//       };
+//       reader.readAsText(file);
+//   }
+// });
 loadLocalCsv();
 async function loadLocalCsv() {
   const response = await fetch('./Songs Spreadsheet - Songs.csv');
   const file = await response.text();
   if (file) {
       songsCsv = parseCSV(file); 
-      console.log('songs', songsCsv);
       songsData = structuredClone(songsCsv); 
       setupSongs(songsCsv); 
       setupDataList(songsCsv);
       loadRandomSong(songsCsv);
+      resetHearts();
       highScoreText.innerHTML = 'High Score: ' + getHighScore();
   };
 }
@@ -359,11 +367,15 @@ function readyUp() {
 }
 
 function editHearts() {
-  hearts[lives].classList.add('greyscale');
+  // hearts[lives].classList.add('greyscale');
+  hearts.textContent = '';
+  hearts.textContent = '❤️ '.repeat(lives);
+  hearts.textContent += ' 🤍'.repeat(totalLives - lives);
 }
 
 function resetHearts() {
-  for (let i = 0; i < lives; i++) {
-    hearts[i].classList.remove('greyscale');
-  }
+  // for (let i = 0; i < lives; i++) {
+  //   hearts[i].classList.remove('greyscale');
+  // }
+  hearts.textContent = '❤️ '.repeat(lives);
 }

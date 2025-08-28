@@ -502,4 +502,8 @@ div.circle:hover {
       }
     }
 
-    
+.navbar-menu a.active {
+  background: var(--brand);
+  color: black;
+  font-weight: 700;
+}
