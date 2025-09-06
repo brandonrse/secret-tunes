@@ -158,8 +158,8 @@ let player;
 let playerReadyPromise = new Promise((resolve) => {
   window.onYouTubeIframeAPIReady = () => {
       player = new YT.Player('player', {
-    height: '0', // Hide the video
-    width: '0',  // Hide the video
+    height: '0', 
+    width: '0',  
     videoId: 'XUmufRvgXGk', // Replace with video ID
     playerVars: { 'controls': 0, 'loop': 1, 'playlist':'XUmufRvgXGk' },
     events: {
@@ -186,7 +186,6 @@ document.getElementById('volume-slider').addEventListener('input', (event) => {
   player.setVolume(volume); // Set volume (0 to 100)
 });
 
-// If video gives an error, generate a random one
 function onPlayerError(event) {
   const errorCode = event.data;
   playerState.playedSongs.push(chosenSong.title);
@@ -211,14 +210,12 @@ guessBtn.addEventListener('click', function() {
   }
 
   let chosenSongName = '';
-  if (hasDuplicateSongName(songs, getSongName(chosenSong.title))) {
-    chosenSongName = chosenSong.title;
-  } else {
-    chosenSongName = getSongName(chosenSong.title)
-  }
-  // console.log('chosen song name', chosenSongName);
-  // console.log('chosen song', chosenSong);
-  // console.log('inputted', songInputValue);
+  // if (hasDuplicateSongName(songs, getSongName(chosenSong.title))) {
+  //   chosenSongName = chosenSong.title;
+  // } else {
+  //   chosenSongName = getSongName(chosenSong.title)
+  // }
+  chosenSongName = chosenSong.title;
   
   if (chosenSongName === songInputValue) {
     console.log('correct!');
@@ -256,11 +253,12 @@ guessBtn.addEventListener('click', function() {
 function setupDataList(songs) {
   songs.forEach(song => {
     let songOption = document.createElement('option');
-    if (hasDuplicateSongName(songs, getSongName(song.title))) {
-      songOption.value = song.title;
-    } else {
-      songOption.value = getSongName(song.title);
-    }
+    // if (hasDuplicateSongName(songs, getSongName(song.title))) {
+    //   songOption.value = song.title;
+    // } else {
+    //   songOption.value = getSongName(song.title);
+    // }
+    songOption.value = song.title;
     songsDataList.appendChild(songOption);
   });
 }

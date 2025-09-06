@@ -209,11 +209,12 @@ function setupSongs(songs) {
 function setupDataList(songs) {
   songs.forEach(song => {
     let songOption = document.createElement('option');
-    if (hasDuplicateSongName(songs, getSongName(song.title))) {
-      songOption.value = song.title;
-    } else {
-      songOption.value = getSongName(song.title);
-    }
+    // if (hasDuplicateSongName(songs, getSongName(song.title))) {
+    //   songOption.value = song.title;
+    // } else {
+    //   songOption.value = getSongName(song.title);
+    // }
+    songOption.value = song.title;
     songsDataList.appendChild(songOption);
   });
 }
@@ -275,11 +276,12 @@ function streakFormSubmit(event) {
   let randomSongName = '';
   songTitleText.innerHTML = getSongName(randomSong.title);
   songGameText.innerHTML = getGameName(randomSong.title);
-  if (hasDuplicateSongName(songsCsv, getSongName(randomSong.title))) {
-    randomSongName = randomSong.title;
-  } else {
-    randomSongName = getSongName(randomSong.title)
-  }
+  // if (hasDuplicateSongName(songsCsv, getSongName(randomSong.title))) {
+  //   randomSongName = randomSong.title;
+  // } else {
+  //   randomSongName = getSongName(randomSong.title)
+  // }
+  randomSongName = randomSong.title;
   if (randomSongName === songInputValue) {
     streakBtn.disabled = true;
     console.log('Correct! Choosing next song...');
