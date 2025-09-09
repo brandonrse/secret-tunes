@@ -425,3 +425,22 @@
   color: black;
   font-weight: 700;
 }
+
+.title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.title {
+  font-weight: 700;
+  line-height: 1.2;
+  flex: 1;
+}
+
+.new-star {
+  line-height: 1.2;
+  margin-left: 8px;
+  color: gold; 
+}
+

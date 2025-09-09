@@ -480,9 +480,9 @@ function setupSongInfo(song) {
 
   // Reveal song logic
   revealSong.onclick = () => {
-    const [songGame, songTitle] = song.title.split(' ~ ');
-    songGameSpan.textContent = songGame;
-    songTitleSpan.textContent = songTitle;
+    // const [songGame, songTitle] = song.title.split(' ~ ');
+    songGameSpan.textContent = song.game;
+    songTitleSpan.textContent = song.title;
   };
 
   // Reroll logic

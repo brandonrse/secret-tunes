@@ -145,9 +145,9 @@ document.getElementById('rerollAny').addEventListener('change', (e) => {
 })
 
 document.getElementById('revealSong').addEventListener('click', () => {
-  let songTitleSplit = chosenSong.title.split(' ~ ');
-  let songGame = songTitleSplit[0];
-  let songName = songTitleSplit[1];
+  // let songTitleSplit = chosenSong.title.split(' ~ ');
+  let songGame = chosenSong.game;
+  let songName = chosenSong.title;
   document.getElementById('span-game').textContent = songGame;
   document.getElementById('span-name').textContent = songName;
 });

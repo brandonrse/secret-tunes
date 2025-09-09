@@ -13,6 +13,16 @@ export const gifs = [
   'url("./assets/images/gifs/greavard-dance.gif")',
 ];
 
+export async function loadOldLocalSongsCsv() {
+  const response = await fetch('./oldsongs.csv');
+  const file = await response.text();
+  let songs = [];
+  if (file) {
+    songs = parseSongsCSV(file); 
+    return songs;
+  };
+}
+
 export async function loadLocalSongsCsv() {
   const response = await fetch('./Songs Spreadsheet - Songs.csv');
   const file = await response.text();
@@ -40,12 +50,13 @@ function parseSongsCSV(csvString) {
   return dataRows.map(row => {
       const fields = parseRow(row);
       return {
-          title: fields[0]?.trim() || '',
-          categories: fields[1] ? parseArray(fields[1]) : [],
-          difficulty: fields[2]?.trim() || '',
-          hints: fields[3]?.trim() || null,
-          series: fields[4] ? parseArray(fields[4]) : [],
-          youtube: fields[5]?.trim() || '',
+          game: fields[0]?.trim() || '',
+          title: fields[1]?.trim() || '',
+          categories: fields[2] ? parseArray(fields[2]) : [],
+          difficulty: fields[3]?.trim() || '',
+          hints: fields[4]?.trim() || null,
+          series: fields[5] ? parseArray(fields[5]) : [],
+          youtube: fields[6]?.trim() || '',
       };
   });
 }

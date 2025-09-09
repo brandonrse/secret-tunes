@@ -1,5 +1,6 @@
 import {
-  loadLocalSongsCsv
+  loadLocalSongsCsv,
+  loadOldLocalSongsCsv
 } from "./data.js";
 
 import {
@@ -9,12 +10,15 @@ import {
 } from "./playerUtility.js";
 
 var songs;
+var oldSongs;
 
-loadLocalSongsCsv().then(
-  (songs) => {
-    setup(songs);
-  }
-);
+Promise.all([loadLocalSongsCsv(), loadOldLocalSongsCsv()]).then(([newSongs, oldSongsData]) => {
+  songs = newSongs;
+  oldSongs = oldSongsData;
+  markNewSongs(songs, oldSongs);
+  setup(songs);
+});
+
 
 function setup(res) {
   songs = res;
@@ -72,11 +76,14 @@ function render(list) {
   for (const s of list) {
     const card = document.createElement('article');
     card.className = 'card';
-    const game = getGameName(s.title);
-    const song = getSongName(s.title);
-
+    const game = s.game;
+    const song = s.title;
+    // const star = s.isNew ? '⭐ ' : '';
     card.innerHTML = `
-            <div class="title">${escapeHtml(song)}</div>
+            <div class="title-row">
+              <div class="title">${escapeHtml(song)}</div>
+              ${s.isNew ? `<span class="new-star">⭐</span>` : ''}
+            </div>
             <div class="meta">
                 <span title="Game">🎮 ${escapeHtml(game)}</span>
                 <span title="Series">🧩 ${escapeHtml(toArray(s.series).join(', '))}</span>
@@ -132,7 +139,7 @@ const els = {
 
 // --- Filtering ---
 function populateFilters() {
-  const games = unique(songs.map(s => getGameName(s.title)).filter(Boolean));
+  const games = unique(songs.map(s => s.game).filter(Boolean));
   const series = unique(songs.flatMap(s => toArray(s.series)).filter(Boolean));
   const cats = unique(songs.flatMap(s => toArray(s.categories)).filter(Boolean));
   createOptionList(els.game, games, 'Any game');
@@ -155,12 +162,12 @@ function applyFilters() {
   if (f.q) {
     list = list.filter(s =>
       s.title.toLowerCase().includes(f.q) ||
-      getGameName(s.title).toLowerCase().includes(f.q) ||
+      s.game.toLowerCase().includes(f.q) ||
       toArray(s.series).some(v => v.toLowerCase().includes(f.q)) ||
       toArray(s.categories).some(c => (c || '').toLowerCase().includes(f.q))
     );
   }
-  if (f.game) { list = list.filter(s => getGameName(s.title) === f.game); }
+  if (f.game) { list = list.filter(s => s.game === f.game); }
   if (f.series) { list = list.filter(s => toArray(s.series).includes(f.series)); }
   if (f.category) { list = list.filter(s => toArray(s.categories).includes(f.category)); }
 
@@ -168,8 +175,8 @@ function applyFilters() {
   const mul = dir === 'asc' ? 1 : -1;
   list.sort((a, b) => {
     switch (key) {
-      case 'title': return mul * getSongName(a.title).localeCompare(getSongName(b.title));
-      case 'game': return mul * getGameName(a.title).localeCompare(getGameName(b.title));
+      case 'title': return mul * a.title.localeCompare(b.title);
+      case 'game': return mul * a.game.localeCompare(b.game);
       case 'diff': return mul * ((a.difficulty || 0) - (b.difficulty || 0));
       default: return 0;
     }
@@ -229,3 +236,13 @@ document.addEventListener('click', (e) => {
   inlinePlayer.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`;
 
 });
+
+
+function markNewSongs(songs, oldSongs) {
+  // Build a set of old titles
+  const oldTitles = new Set(oldSongs.map(s => s.title));
+
+  for (const s of songs) {
+    s.isNew = !oldTitles.has(s.title);
+  }
+}

@@ -1,12 +1,10 @@
 import { 
   getRandInt, 
   getYoutubeID, 
-  getSongName, 
   getRandomSong, 
   getUnplayedSongs, 
   isSongInArrayByTitle, 
   hasDuplicateSongName,
-  getGameName
 } from "./playerUtility.js";
 
 import {
@@ -180,12 +178,13 @@ function parseCSV(csvString) {
   return dataRows.map(row => {
       const fields = parseRow(row);
       return {
-          title: fields[0]?.trim() || '',
-          categories: fields[1] ? parseArray(fields[1]) : [],
-          difficulty: fields[2]?.trim() || '',
-          hints: fields[3]?.trim() || null,
-          series: fields[4] ? parseArray(fields[4]) : [],
-          youtube: fields[5]?.trim() || '',
+          game: fields[0]?.trim() || '',
+          title: fields[1]?.trim() || '',
+          categories: fields[2] ? parseArray(fields[2]) : [],
+          difficulty: fields[3]?.trim() || '',
+          hints: fields[4]?.trim() || null,
+          series: fields[5] ? parseArray(fields[5]) : [],
+          youtube: fields[6]?.trim() || '',
       };
   });
 }
@@ -204,6 +203,7 @@ function parseArray(value) {
 function setupSongs(songs) {
   songCategories = [...new Set(songs.flatMap(s => s.categories))].sort();
   songSeries = [...new Set(songs.flatMap(s => s.series))].sort();
+  console.log(songs);
 }
 
 function setupDataList(songs) {
@@ -214,7 +214,7 @@ function setupDataList(songs) {
     // } else {
     //   songOption.value = getSongName(song.title);
     // }
-    songOption.value = song.title;
+    songOption.value = song.game + ' ~ ' + song.title;
     songsDataList.appendChild(songOption);
   });
 }
@@ -274,14 +274,14 @@ function streakFormSubmit(event) {
   }
   const songInputValue = songInput.value.trim();
   let randomSongName = '';
-  songTitleText.innerHTML = getSongName(randomSong.title);
-  songGameText.innerHTML = getGameName(randomSong.title);
+  songTitleText.innerHTML = randomSong.title;
+  songGameText.innerHTML = randomSong.game;
   // if (hasDuplicateSongName(songsCsv, getSongName(randomSong.title))) {
   //   randomSongName = randomSong.title;
   // } else {
   //   randomSongName = getSongName(randomSong.title)
   // }
-  randomSongName = randomSong.title;
+  randomSongName = randomSong.game + ' ~ ' + randomSong.title;
   if (randomSongName === songInputValue) {
     streakBtn.disabled = true;
     console.log('Correct! Choosing next song...');

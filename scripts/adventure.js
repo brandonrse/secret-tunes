@@ -8,14 +8,12 @@ import {
   getSongsByDifficulty,
   getYoutubeID,
   hasDuplicateSongName,
-  getSongName,
   getUnplayedSongs,
   getSongsByCategory,
   getSongsBySeries,
   getCharactersByCategories,
   getCharactersByDifficulty, 
   getCharactersBySeries,
-  getGameName,
   getSongsWithoutCategory
 } from "./playerUtility.js";
 
@@ -215,7 +213,7 @@ guessBtn.addEventListener('click', function() {
   // } else {
   //   chosenSongName = getSongName(chosenSong.title)
   // }
-  chosenSongName = chosenSong.title;
+  chosenSongName = chosenSong.game + ' ~ ' + chosenSong.title;
   
   if (chosenSongName === songInputValue) {
     console.log('correct!');
@@ -226,12 +224,12 @@ guessBtn.addEventListener('click', function() {
 
     levelLabel.innerHTML = `Level: ${playerState.level} <br />Exp: ${playerState.exp}`;
     if (chosenMacguffin !== '') {
-      changeTextBoxText(`You successfully guessed the song <span class="song-title">${getSongName(chosenSong.title)}</span> from <span class="game-title">${getGameName(chosenSong.title)}</span> and defeated <span class="character-name">${chosenCharacter.title}</span>! In addition, you've obtained the <span class="macguffin-title">${chosenMacguffin}!</span>`);
+      changeTextBoxText(`You successfully guessed the song <span class="song-title">${chosenSong.title}</span> from <span class="game-title">${chosenSong.game}</span> and defeated <span class="character-name">${chosenCharacter.title}</span>! In addition, you've obtained the <span class="macguffin-title">${chosenMacguffin}!</span>`);
       playerState.obtainedMacguffins.push(chosenMacguffin);
       addMacguffin(chosenMacguffin);
       chosenMacguffin = '';
     } else {
-      changeTextBoxText(`You successfully guessed the song <span class="song-title">${getSongName(chosenSong.title)}</span> from <span class="game-title">${getGameName(chosenSong.title)}</span> and defeated <span class="character-name">${chosenCharacter.title}</span>!`);
+      changeTextBoxText(`You successfully guessed the song <span class="song-title">${chosenSong.title}</span> from <span class="game-title">${chosenSong.game}</span> and defeated <span class="character-name">${chosenCharacter.title}</span>!`);
     }
     characterImg.classList.add('defeated');
     guessBtn.textContent = 'Next';
@@ -243,7 +241,7 @@ guessBtn.addEventListener('click', function() {
 
   } else {
     console.log('wrong');
-    changeTextBoxText(`You failed to guess the song ${getSongName(chosenSong.title)} from ${getGameName(chosenSong.title)}... GAME OVER.`);
+    changeTextBoxText(`You failed to guess the song ${chosenSong.title} from ${chosenSong.game}... GAME OVER.`);
     guessBtn.textContent = 'Restart';
     gameOver = true;
     localStorage.clear();
@@ -258,7 +256,7 @@ function setupDataList(songs) {
     // } else {
     //   songOption.value = getSongName(song.title);
     // }
-    songOption.value = song.title;
+    songOption.value = song.game + ' ~ ' + song.title;
     songsDataList.appendChild(songOption);
   });
 }
