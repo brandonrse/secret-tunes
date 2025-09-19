@@ -39,6 +39,7 @@ const hintBtn = document.querySelector('.hint-btn');
 const hintDiv = document.querySelector('.hint-div');
 const hintsUsedDiv = document.querySelector('.hints-used');
 const hearts = document.querySelector('.hearts');
+const history = document.querySelector('.history');
 
 const colors = [
   'rgb(87, 4, 58)',
@@ -285,6 +286,7 @@ function streakFormSubmit(event) {
   if (randomSongName === songInputValue) {
     streakBtn.disabled = true;
     console.log('Correct! Choosing next song...');
+    addToHistory(randomSong, true);
     resultText.innerHTML = '✔️';
     score += 1;  
     if (score > getHighScore()) {
@@ -299,6 +301,7 @@ function streakFormSubmit(event) {
     editHearts();
     resultText.textContent = '❌'
     scoreText.textContent = 'Score: ' + score;
+    addToHistory(randomSong, false);
     
     // Game Over
     if (lives === 0) {    
@@ -331,6 +334,7 @@ function restart() {
   songGameText.innerHTML = '?????';
   resultText.textContent = '';
   streakBtn.textContent = 'Submit';
+  history.innerHTML = '';
   resetHintElements();
   document.getElementById('songDataList').value = '';
   loadRandomSong(songsCsv);
@@ -380,4 +384,25 @@ function resetHearts() {
   //   hearts[i].classList.remove('greyscale');
   // }
   hearts.textContent = '❤️ '.repeat(lives);
+}
+
+function addToHistory(song, correct) {
+  console.log(song);
+  console.log(correct);
+
+  const songDiv = document.createElement('div');
+  songDiv.className = 'song-history';
+  const songP = document.createElement('p');
+  songP.className = 'song-history';
+
+  const songTitleSpan = document.createElement('span');
+  songTitleSpan.className = 'history-title';
+  songTitleSpan.innerHTML = `${correct ? '✔️' : '❌'} ${song.title}`
+  const songGameSpan = document.createElement('span');
+  songGameSpan.className = 'history-game';
+  songGameSpan.innerHTML = `${song.game}`
+
+  songP.appendChild(songTitleSpan);
+  songP.appendChild(songGameSpan);
+  history.appendChild(songP);
 }

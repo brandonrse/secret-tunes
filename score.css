@@ -69,3 +69,23 @@
   from { transform: scale(0.5); opacity: 0; }
   to { transform: scale(1); opacity: 1; }
 }
+
+.song-history {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  background-color: #25213791;
+  margin: 10px auto;
+  border: solid 2px;
+  border-color: #ffffff5e;
+  border-radius: 5px;
+  font-weight: bold;
+  text-align: left;
+  max-width: 580px;
+}
+
+.song-history:hover {
+  cursor: pointer;
+  background-color: #1f183791;
+  border-color: #ffffffa8;
+}
