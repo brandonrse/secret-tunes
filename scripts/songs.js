@@ -92,7 +92,7 @@ function render(list) {
             <div class="badges" aria-label="Categories">
                 ${toArray(s.categories).map(c => `<span class="pill">${escapeHtml(c)}</span>`).join('')}
             </div>
-            ${toArray(s.hints).length ? `<details><summary>Hints (${toArray(s.hints).length})</summary><ul>${toArray(s.hints).map(h => `<li>${escapeHtml(h)}</li>`).join('')}</ul></details>` : ''}
+            ${toArray(s.hints).length ? `<details><summary>Hints</summary><ul>${toArray(s.hints).map(h => `<li>${escapeHtml(h)}</li>`).join('')}</ul></details>` : ''}
 <div class="actions">
   ${s.youtube
         ? `<button class="btn play-inline" data-video-id="${escapeAttr(getYouTubeID(s.youtube))}">▶️ Play</button>`
