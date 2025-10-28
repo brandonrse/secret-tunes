@@ -387,9 +387,6 @@ function resetHearts() {
 }
 
 function addToHistory(song, correct) {
-  console.log(song);
-  console.log(correct);
-
   const songDiv = document.createElement('div');
   songDiv.className = 'song-history';
   const songP = document.createElement('p');

@@ -2,6 +2,9 @@ export function getYoutubeID(url) {
   const match = url.match(
     /(?:youtube\.com.*(?:\?|&)v=|youtu\.be\/)([^&?/]+)/i
   );
+  // const match = 'https://youtu.be/20dDREZRS9g?si=Q4LWh76EHzU_f0Fe'.match(
+  //    /(?:youtube\.com.*(?:\?|&)v=|youtu\.be\/)([^&?/]+)/i
+  // );
   return match ? match[1] : null;
 }
 
