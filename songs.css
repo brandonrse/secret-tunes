@@ -113,7 +113,7 @@
       color: var(--text);
     }
 
-    /* Optional: custom arrow for select */
+    /* custom arrow for select */
     .field {
       position: relative;
     }
@@ -414,7 +414,6 @@
 
     .inline-player iframe {
       min-width: 480px;
-      /* adjust as needed */
       width: 100%;
       height: 270px;
       /* 16:9 */

@@ -24,6 +24,7 @@
 .adventure-character {
   max-width: 720px;
   max-height: 480px;
+  min-height: 480px;
   animation: bob 1s ease-in-out infinite;
 }
 
