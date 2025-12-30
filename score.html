@@ -10,18 +10,23 @@
       rel="stylesheet">
   <link rel="stylesheet" href="styles.css"/>
   <link rel="stylesheet" href="score.css"/>
+  <link rel="stylesheet" href="./navbar.css"/>
+
 </head>
 <body>
   <nav class="navbar">
     <a href="./index.html" class="navbar-brand">Secret Tunes</a>
     <div class="hamburger" id="hamburger">
-      <span></span><span></span><span></span>
+      <span></span>
+      <span></span>
+      <span></span>
     </div>
     <div class="navbar-menu" id="navbarMenu">
       <a href="./songs.html">Song Library</a>
       <a href="./jeopardy.html">Jeopardy Mode</a>
       <a href="./score.html" class="active">Score Attack</a>
       <a href="./adventure.html">Adventure Mode</a>
+      <a href="./battle.html">Battle Mode</a>
     </div>
   </nav>   
 
@@ -56,6 +61,8 @@
       <button class="btn btn-success streak-btn mb-2" type="button">Submit</button>
       <button class="btn btn-warning hint-btn d-none">Reveal Hint</button>
       <div class="hint-div d-none mt-2 p-2"></div>
+      <div class="category-hints mt-2 p-2">
+      </div>
     </div>
 
     <!-- Timer -->
@@ -66,6 +73,8 @@
   <div class="history"></div>
   <script src="./scripts/playerUtility.js" type="module"></script>
   <script src="./scripts/streak.js" type="module"></script>
+  <script src="./scripts/navbar.js"></script>
+
 </body>
 
 </html>

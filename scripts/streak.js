@@ -40,6 +40,7 @@ const hintDiv = document.querySelector('.hint-div');
 const hintsUsedDiv = document.querySelector('.hints-used');
 const hearts = document.querySelector('.hearts');
 const history = document.querySelector('.history');
+const categoryHintsDiv = document.querySelector('.category-hints');
 
 const colors = [
   'rgb(87, 4, 58)',
@@ -204,7 +205,7 @@ function parseArray(value) {
 function setupSongs(songs) {
   songCategories = [...new Set(songs.flatMap(s => s.categories))].sort();
   songSeries = [...new Set(songs.flatMap(s => s.series))].sort();
-  console.log(songs);
+  // console.log(songs);
 }
 
 function setupDataList(songs) {
@@ -231,6 +232,19 @@ async function loadRandomSong(songs) {
     hintDiv.innerHTML = randomSong.hints;
   } else {
     hintBtn.classList.add('d-none');
+  }
+
+  categoryHintsDiv.innerHTML = '';
+  for (let i = 0; i < randomSong.categories.length; i++) {
+    const catHintBtn = document.createElement('button');
+    catHintBtn.className = 'btn btn-warning';
+    catHintBtn.textContent = `Reveal Category ${i+1}`;
+    catHintBtn.addEventListener('click', () => {
+      catHintBtn.textContent = randomSong.categories[i];
+      catHintBtn.className = 'btn btn-info';
+    });
+    
+    categoryHintsDiv.appendChild(catHintBtn);
   }
   // console.log('random song:', randomSong);
   const youtubeId = getYoutubeID(randomSong.youtube);

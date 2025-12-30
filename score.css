@@ -89,3 +89,10 @@
   background-color: #1f183791;
   border-color: #ffffffa8;
 }
+
+.category-hints {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: auto;
+}

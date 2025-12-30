@@ -26,6 +26,7 @@ var chosenCharacter;
 var gameOver;
 var nextStage;
 var chosenMacguffin = '';
+var charHealth = 1;
 
 const songsDataList = document.getElementById('songDataListOptions');
 const adventureBackground = document.querySelector('.adventure-background');
@@ -37,6 +38,7 @@ const musicDiv = document.querySelector('.music-container');
 const stickerContainer = document.querySelector('.sticker-container');
 const macguffinContainer = document.querySelector('.macguffin-container');
 const levelLabel = document.querySelector('.level-label');
+const healthLabel = document.querySelector('.health-label');
 
 const macguffinsUrl = './assets/images/adventure/items/';
 const macguffins = [
@@ -217,27 +219,32 @@ guessBtn.addEventListener('click', function() {
   
   if (chosenSongName === songInputValue) {
     console.log('correct!');
+    charHealth -= 1;
+
     playerState.playedSongs.push(chosenSong.title);
-
-    playerState.exp += getExpByDifficulty(chosenSong.difficulty);
-    levelUp();
-
-    levelLabel.innerHTML = `Level: ${playerState.level} <br />Exp: ${playerState.exp}`;
-    if (chosenMacguffin !== '') {
-      changeTextBoxText(`You successfully guessed the song <span class="song-title">${chosenSong.title}</span> from <span class="game-title">${chosenSong.game}</span> and defeated <span class="character-name">${chosenCharacter.title}</span>! In addition, you've obtained the <span class="macguffin-title">${chosenMacguffin}!</span>`);
-      playerState.obtainedMacguffins.push(chosenMacguffin);
-      addMacguffin(chosenMacguffin);
-      chosenMacguffin = '';
+    if (charHealth <= 0) {
+      playerState.exp += getExpByDifficulty(chosenSong.difficulty);
+      levelUp();
+      
+      levelLabel.innerHTML = `Level: ${playerState.level} <br />Exp: ${playerState.exp}`;
+      if (chosenMacguffin !== '') {
+        changeTextBoxText(`You successfully guessed the song <span class="song-title">${chosenSong.title}</span> from <span class="game-title">${chosenSong.game}</span> and defeated <span class="character-name">${chosenCharacter.title}</span>! In addition, you've obtained the <span class="macguffin-title">${chosenMacguffin}!</span>`);
+        playerState.obtainedMacguffins.push(chosenMacguffin);
+        addMacguffin(chosenMacguffin);
+        chosenMacguffin = '';
+      } else {
+        changeTextBoxText(`You successfully guessed the song <span class="song-title">${chosenSong.title}</span> from <span class="game-title">${chosenSong.game}</span> and defeated <span class="character-name">${chosenCharacter.title}</span>!`);
+      }
+      characterImg.classList.add('defeated');
+      guessBtn.textContent = 'Next';
+      nextStage = true;
+      songInput.value = '';
+      playerState.defeatedCharacters.push(chosenCharacter.title);
+      addSticker(chosenCharacter.title);
+      localStorage.setItem('playerState', JSON.stringify(playerState));
     } else {
-      changeTextBoxText(`You successfully guessed the song <span class="song-title">${chosenSong.title}</span> from <span class="game-title">${chosenSong.game}</span> and defeated <span class="character-name">${chosenCharacter.title}</span>!`);
+
     }
-    characterImg.classList.add('defeated');
-    guessBtn.textContent = 'Next';
-    nextStage = true;
-    songInput.value = '';
-    playerState.defeatedCharacters.push(chosenCharacter.title);
-    addSticker(chosenCharacter.title);
-    localStorage.setItem('playerState', JSON.stringify(playerState));
 
   } else {
     console.log('wrong');
@@ -376,6 +383,7 @@ function setupRandomCharacter(song) {
     }
   }
   chosenCharacter = randomCharacter;
+  charHealth = 1;
 
   const characterImg = document.createElement('img');
   characterImg.src = characterUrl + randomCharacter.title + '.webp';

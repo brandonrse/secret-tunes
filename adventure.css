@@ -213,3 +213,8 @@
   padding: 10px;
   flex-wrap: wrap;
 }
+
+.health-label {
+  text-align: center;
+  font-size: xx-large;
+}
