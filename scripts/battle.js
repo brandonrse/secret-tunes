@@ -137,9 +137,9 @@ async function loadSong(song) {
 
 function renderBattleUI(left, right) {
   document.getElementById("left-title").textContent =
-    `${left.game} – ${left.title}`;
+    `${left.game} – ${left.title} ▶️`;
   document.getElementById("right-title").textContent =
-    `${right.game} – ${right.title}`;
+    `${right.game} – ${right.title} ▶️`;
 
   document.getElementById("left-meta").textContent =
     left.categories?.join(", ") ?? "";
