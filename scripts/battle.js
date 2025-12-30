@@ -152,12 +152,16 @@ function renderBattleUI(left, right) {
 
 function showChampion(song) {
   const container = document.querySelector(".music-container");
+
+  // Hide battle options
   document.querySelector(".battle-container").style.display = "none";
 
+  // Update round info
   const roundInfo = document.getElementById("round-info");
   roundInfo.textContent = "🏆 CHAMPION 🏆";
   roundInfo.style.color = "#ffd866";
 
+  // Show champion card
   const champContainer = document.createElement("div");
   champContainer.classList.add("champion-container");
   champContainer.style.display = "flex";
@@ -176,7 +180,7 @@ function showChampion(song) {
 
   container.appendChild(champContainer);
 
-  // Show tournament size menu after champion
+  // Show tournament size buttons again
   showTournamentSizeMenu(container);
 
   loadSong(song);
@@ -221,8 +225,9 @@ function startBattleMode(size = 16) {
 loadLocalSongsCsv().then((res) => {
   songs = res;
   const container = document.querySelector(".music-container");
-  showTournamentSizeMenu(container); // user must pick size first
+  showTournamentSizeMenu(container);
 });
+
 
 
 function renderBracket(container) {
@@ -277,23 +282,44 @@ function renderBracket(container) {
 /* =========================
    Tournament Size UI
 ========================= */
-
 function showTournamentSizeMenu(container) {
   const menu = document.createElement("div");
-  menu.classList.add("champion-container"); // reuse styling
+  menu.classList.add("champion-container"); 
   menu.style.gap = "12px";
   menu.style.marginTop = "20px";
   menu.innerHTML = `<h2 style="color:#f5c542; text-align:center;">Select Tournament Size</h2>`;
-  
-  const sizes = [8, 16, 32, 64]; // available options
+
+  const sizes = [8, 16, 32, 64];
   sizes.forEach(size => {
     const btn = document.createElement("button");
     btn.classList.add("pick-btn");
     btn.textContent = `Top ${size}`;
+
     btn.onclick = () => {
+      // Remove menu
       menu.remove();
+
+      // Remove old champion card
+      const oldChampion = document.querySelector(".champion-container");
+      if (oldChampion) oldChampion.remove();
+
+      // Remove old bracket
+      const oldBracket = document.querySelector(".bracket-container");
+      if (oldBracket) oldBracket.remove();
+
+      // Reset round info
+      const roundInfo = document.getElementById("round-info");
+      roundInfo.textContent = "";
+      roundInfo.style.color = "";
+
+      // Show the battle options
+      const battleContainer = document.querySelector(".battle-container");
+      battleContainer.style.display = "grid";
+
+      // Start tournament
       startBattleMode(size);
     };
+
     menu.appendChild(btn);
   });
 
