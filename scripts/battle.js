@@ -151,9 +151,9 @@ async function loadMatchSongs(left, right) {
 
 function renderBattleUI(left, right) {
   document.getElementById("left-title").textContent =
-    `${left.game} – ${left.title} ▶️`;
+    `${left.game} – ${left.title}`;
   document.getElementById("right-title").textContent =
-    `${right.game} – ${right.title} ▶️`;
+    `${right.game} – ${right.title}`;
 
   document.getElementById("left-meta").textContent =
     left.categories?.join(", ") ?? "";
@@ -207,18 +207,6 @@ function showChampion(song) {
 ========================= */
 
 function wireUI() {
-  document.getElementById("left-song").onclick = (e) => {
-    if (!e.target.classList.contains("pick-btn")) {
-      loadSong(leftSong);
-    }
-  };
-
-  document.getElementById("right-song").onclick = (e) => {
-    if (!e.target.classList.contains("pick-btn")) {
-      loadSong(rightSong);
-    }
-  };
-
   document.getElementById("pick-left").onclick = () => pickWinner(leftSong);
   document.getElementById("pick-right").onclick = () => pickWinner(rightSong);
 }
