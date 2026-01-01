@@ -9,8 +9,9 @@ let songs = [];
 let tournament = null;
 let leftSong = null;
 let rightSong = null;
-let currentlyPlaying = null;
-let player;
+let leftPlayer;
+let rightPlayer;
+
 
 /* =========================
    YouTube Player Setup
@@ -18,15 +19,25 @@ let player;
 
 let playerReadyPromise = new Promise((resolve) => {
   window.onYouTubeIframeAPIReady = () => {
-    player = new YT.Player("player", {
+    let readyCount = 0;
+
+    function checkReady() {
+      readyCount++;
+      if (readyCount === 2) resolve();
+    }
+
+    leftPlayer = new YT.Player("player-left", {
       playerVars: { controls: 1 },
-      events: {
-        onReady: () => resolve(player),
-        onError: (e) => console.error("YT Error", e)
-      }
+      events: { onReady: checkReady }
+    });
+
+    rightPlayer = new YT.Player("player-right", {
+      playerVars: { controls: 1 },
+      events: { onReady: checkReady }
     });
   };
 });
+
 
 /* =========================
    Utilities
@@ -70,14 +81,14 @@ function createTournament(allSongs, size = 32) {
   };
 }
 
-
-
 function loadCurrentMatch() {
   const [a, b] = tournament.matches[tournament.currentMatchIndex];
+
   leftSong = a;
   rightSong = b;
+
   renderBattleUI(a, b);
-  loadSong(a);
+  loadMatchSongs(a, b);
 }
 
 function pickWinner(song) {
@@ -118,18 +129,21 @@ function advanceRound() {
 /* =========================
    Player Control
 ========================= */
-async function loadSong(song) {
-  currentlyPlaying = song;
-
-  const id = getYoutubeID(song.youtube);
+async function loadMatchSongs(left, right) {
   await playerReadyPromise;
 
-  player.stopVideo();          // important
-  player.loadVideoById(id);
-  player.playVideo();
-  player.setVolume(10);
-}
+  const leftId = getYoutubeID(left.youtube);
+  const rightId = getYoutubeID(right.youtube);
 
+  leftPlayer.stopVideo();
+  rightPlayer.stopVideo();
+
+  leftPlayer.cueVideoById(leftId);
+  rightPlayer.cueVideoById(rightId);
+
+  leftPlayer.setVolume(10);
+  rightPlayer.setVolume(10);
+}
 
 /* =========================
    UI Rendering
@@ -180,10 +194,8 @@ function showChampion(song) {
 
   container.appendChild(champContainer);
 
-  // Show tournament size buttons again
   showTournamentSizeMenu(container);
 
-  loadSong(song);
   renderBracket(container);
 }
 
