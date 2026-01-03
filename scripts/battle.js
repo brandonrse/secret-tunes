@@ -133,16 +133,19 @@ async function loadMatchSongs(left, right) {
   await playerReadyPromise;
 
   const leftId = getYoutubeID(left.youtube);
-  const rightId = getYoutubeID(right.youtube);
 
   leftPlayer.stopVideo();
-  rightPlayer.stopVideo();
 
   leftPlayer.cueVideoById(leftId);
-  rightPlayer.cueVideoById(rightId);
 
   leftPlayer.setVolume(10);
-  rightPlayer.setVolume(10);
+
+  if (right) {
+    const rightId = getYoutubeID(right.youtube);
+    rightPlayer.stopVideo();
+    rightPlayer.cueVideoById(rightId);
+    rightPlayer.setVolume(10);
+  }
 }
 
 /* =========================
@@ -268,7 +271,7 @@ function renderBracket(container) {
       matchCard.querySelectorAll(".song").forEach((el, idx) => {
         el.addEventListener("click", (e) => {
           e.stopPropagation();
-          loadSong(idx === 0 ? a : b);
+          loadMatchSongs(idx === 0 ? a : b);
         });
       });
 
