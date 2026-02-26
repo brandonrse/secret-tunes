@@ -1,40 +1,27 @@
-console.log("hello");
+import { 
+  loadLocalSongsCsv
+} from "./data.js";
+import { 
+  getRandomSongsEfficient,
+  getYoutubeID
+} from "./playerUtility.js";
 
-fetch('data.json')
-  .then(r => r.json())
-  .then(json => {
-    console.log(json)
-    let audio = document.createElement('audio');
-    audio.src = './audio/music/DP%20Rival.mp3'; // Replace spaces with %20
-    audio.controls = true; // Add controls to make it playable
-    document.body.appendChild(audio);
-    console.log(audio);
+const playlistBtn = document.querySelector('.btn-playlist');
 
-  });
+var songs;
 
-// let audio = new Audio('./audio/music/DP Rival.mp3');
+loadLocalSongsCsv().then(
+  (songs) => {
+    setup(songs);
+  }
+);
 
-let player;
-
-function onYouTubeIframeAPIReady() {
-  player = new YT.Player('player', {
-    height: '0', // Hide the video
-    width: '0',  // Hide the video
-    videoId: 'c0y9SDiihBY', // Replace with your video ID
-    playerVars: { 'controls': 0 },
+function setup(res) {
+  songs = res;
+  playlistBtn.addEventListener('click', () => {
+    const randomSongs = getRandomSongsEfficient(songs, 50);
+    const videoIDs = randomSongs.map(song => getYoutubeID(song.youtube)).filter(Boolean);
+    const playlistURL = `https://www.youtube.com/watch_videos?video_ids=${videoIDs.join(",")}`;
+    window.open(playlistURL, "_blank");
   });
 }
-
-// Add event listeners for custom controls
-document.getElementById('play').addEventListener('click', () => player.playVideo());
-document.getElementById('pause').addEventListener('click', () => player.pauseVideo());
-
-document.getElementById('volume-slider').addEventListener('input', (event) => {
-  const volume = event.target.value;
-  player.setVolume(volume); // Set volume (0 to 100)
-});
-
-// Load the YouTube IFrame API script
-const tag = document.createElement('script');
-tag.src = "https://www.youtube.com/iframe_api";
-document.head.appendChild(tag);

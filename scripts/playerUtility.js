@@ -27,6 +27,40 @@ export function getRandomSong(songs) {
   return songs[getRandInt(0, songs.length)];
 }
 
+export function getRandomSongs(songs, count = 50) {
+  const filtered = songs.filter(song => 
+    !song.categories.includes("Jingles")
+  );
+
+  const shuffled = [...filtered];
+
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+
+  return shuffled.slice(0, Math.min(count, shuffled.length));
+}
+
+export function getRandomSongsEfficient(songs, count = 50) {
+  const filtered = songs.filter(song => 
+    !song.categories.includes("Jingles")
+  );
+
+  const result = [];
+  const used = new Set();
+
+  while (result.length < count && used.size < filtered.length) {
+    const index = Math.floor(Math.random() * filtered.length);
+    if (!used.has(index)) {
+      used.add(index);
+      result.push(filtered[index]);
+    }
+  }
+
+  return result;
+}
+
 export function getUnplayedSongs(songs, playedSongsTitles) {
   return songs.filter((s) => !playedSongsTitles.includes(s.title));
 }
