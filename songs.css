@@ -413,7 +413,7 @@
     }
 
     .inline-player iframe {
-      min-width: 480px;
+      /* min-width: 480px; */
       width: 100%;
       height: 270px;
       /* 16:9 */
